@@ -1,0 +1,15 @@
+{
+  "name": "aoc2020",
+  "description": "Advent of Code 2020 in Typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/danitetus/aoc2020.git",
+  "author": "Daniel Cañada Garcia <danitetus@gmail.com>",
+  "scripts": {
+    "build": "tsc"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.1.2"
+  }
+}
