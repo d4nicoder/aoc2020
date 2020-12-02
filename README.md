@@ -8,8 +8,8 @@ Let's see if this time I finish it ...
 
 ## Run instructions
 
-All source files are under ./src folder. You can run directly typing
+All source files are in the ./src folder and compiled in ./dist. You can run all the challenge solutions by typing:
 
 ```bash
-npx ts-node ./src/<day>/<file>.ts
+npm start
 ```
