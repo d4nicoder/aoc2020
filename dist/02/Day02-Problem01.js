@@ -25,6 +25,9 @@ const parseLine = (line) => {
     };
 };
 const start = async () => {
+    console.log(`Advent Of Code 2020.`);
+    console.log(`Day 02 problem nº 1`);
+    console.log(`=================================`);
     const inputFile = await fs_1.default.promises.readFile(path_1.default.join(__dirname, 'input.txt'));
     const inputFileData = inputFile.toString().split('\n').filter((line) => line.trim() !== '');
     const validPasswords = inputFileData.map((line) => {
@@ -43,6 +46,6 @@ const start = async () => {
         }
         return checkLetterTimes(lineData.password, lineData.letter, lineData.min, lineData.max);
     });
-    console.log(`There are ${validPasswords.length} valid passwords`);
+    console.log(`    - There are ${validPasswords.length} valid passwords`);
 };
-start().catch(console.error);
+exports.default = start;

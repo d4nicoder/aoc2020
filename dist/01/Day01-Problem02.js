@@ -34,4 +34,4 @@ const start = async () => {
     const result = sumNumbers[0] * sumNumbers[1] * sumNumbers[2];
     console.log(`    - Final result: ${result}`);
 };
-start().catch(console.error);
+exports.default = start;

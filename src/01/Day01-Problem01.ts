@@ -35,4 +35,4 @@ const start = async (): Promise<void> => {
     console.log(`    - Final result: ${result}`)
 }
 
-start().catch(console.error)
+export default start

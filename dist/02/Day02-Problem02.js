@@ -44,16 +44,19 @@ const validPasswords = (lines) => {
     return validPasswords.length;
 };
 const start = async () => {
+    console.log(`Advent Of Code 2020.`);
+    console.log(`Day 02 problem nº 2`);
+    console.log(`=================================`);
     const sampleData = [
         '1-3 a: abcde',
         '1-3 b: cdefg',
         '2-9 c: ccccccccc'
     ];
     const validPasswordInSample = validPasswords(sampleData);
-    console.log(`${validPasswordInSample} valid passwords in sample data`);
+    console.log(`    - ${validPasswordInSample} valid passwords in sample data`);
     const inputFile = await fs_1.default.promises.readFile(path_1.default.join(__dirname, 'input.txt'));
     const inputFileData = inputFile.toString().split('\n').filter((line) => line.trim() !== '');
     const validPasswordsInInput = validPasswords(inputFileData);
-    console.log(`${validPasswordsInInput} valid password in input data`);
+    console.log(`    - ${validPasswordsInInput} valid password in input data`);
 };
-start().catch(console.error);
+exports.default = start;

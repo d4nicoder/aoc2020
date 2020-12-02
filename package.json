@@ -8,7 +8,8 @@
   "scripts": {
     "prebuild": "rm -Rf ./dist",
     "build": "tsc",
-    "postbuild": "cpy '**/*' '!**/*.ts' ../dist/ --cwd=src/ --no-overwrite --parents"
+    "postbuild": "cpy '**/*' '!**/*.ts' ../dist/ --cwd=src/ --no-overwrite --parents",
+    "start": "node dist/runAll.js"
   },
   "license": "MIT",
   "devDependencies": {
