@@ -6,11 +6,14 @@
   "repository": "https://github.com/danitetus/aoc2020.git",
   "author": "Daniel Cañada Garcia <danitetus@gmail.com>",
   "scripts": {
-    "build": "tsc"
+    "prebuild": "rm -Rf ./dist",
+    "build": "tsc",
+    "postbuild": "cpy '**/*' '!**/*.ts' ../dist/ --cwd=src/ --no-overwrite --parents"
   },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^14.14.10",
+    "cpy-cli": "^3.1.1",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
   }
