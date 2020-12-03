@@ -24,16 +24,15 @@ const findTrees = (rows: number[][], right: number, down: number): number => {
     return trees
 }
 
-const start = async () => {
+const start = async (): Promise<number> => {
     const inputData = await fs.promises.readFile(path.join(__dirname, 'input.txt'))
     const parsedArray = parseArray(inputData.toString())
 
     const slopes: number[][] = [[1, 1],[3, 1], [5, 1], [7, 1], [1, 2]]
-    const result: number = slopes.reduce((accum: number, slope: number[]) => {
+    return slopes.reduce((accum: number, slope: number[]) => {
         const trees = findTrees(parsedArray, slope[0], slope[1])
         return accum * trees
     }, 1)
-    console.log(`Magic number: ${result}`)
 }
 
-start().catch(console.error)
+export default start

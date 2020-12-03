@@ -47,23 +47,10 @@ const validPasswords = (lines: string[]): number => {
     })
     return validPasswords.length
 }
-const start = async () => {
-    console.log(`Advent Of Code 2020.`)
-    console.log(`Day 02 problem nº 2`)
-    console.log(`=================================`)
-    const sampleData = [
-        '1-3 a: abcde',
-        '1-3 b: cdefg',
-        '2-9 c: ccccccccc'
-    ]
-
-    const validPasswordInSample: number = validPasswords(sampleData)
-    console.log(`    - ${validPasswordInSample} valid passwords in sample data`)
-
+const start = async (): Promise<number> => {
     const inputFile = await fs.promises.readFile(path.join(__dirname, 'input.txt'))
     const inputFileData = inputFile.toString().split('\n').filter((line) => line.trim() !== '')
-    const validPasswordsInInput: number = validPasswords(inputFileData)
-    console.log(`    - ${validPasswordsInInput} valid password in input data`)
+    return validPasswords(inputFileData)
 }
 
 export default start

@@ -8,7 +8,6 @@ type ISumNumbers = [
 ]
 
 const findSumNumbers = (inputNumbers: number[]): ISumNumbers => {
-    const result: ISumNumbers = [-1, -1, -1]
     for (let i = 0; i < inputNumbers.length; i++) {
         const firstSum = parseInt(inputNumbers[i].toString(), 10)
         for (let j = i; j < inputNumbers.length; j++) {
@@ -27,18 +26,14 @@ const findSumNumbers = (inputNumbers: number[]): ISumNumbers => {
     throw new Error('Sum not found')
 }
 
-const start = async (): Promise<void> => {
-    console.log(`Advent Of Code 2020.`)
-    console.log(`Day 01 problem nº 2`)
-    console.log(`=================================`)
+const start = async (): Promise<number> => {
     const inputData = await fs.promises.readFile(path.join(__dirname, 'input.txt'))
     const numbers = inputData.toString().split('\n').map((line: string) => {
         return parseInt(line.trim(), 10)
     })
     const sumNumbers = findSumNumbers(numbers)
-    console.log(`    - Found numbers [${sumNumbers.join(', ')}]`)
     const result = sumNumbers[0] * sumNumbers[1] * sumNumbers[2]
-    console.log(`    - Final result: ${result}`)
+    return result
 }
 
 export default start

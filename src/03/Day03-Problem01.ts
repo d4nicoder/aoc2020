@@ -22,11 +22,10 @@ const findTrees = (rows: number[][]): number => {
     return trees
 }
 
-const start = async () => {
+const start = async (): Promise<number> => {
     const inputData = await fs.promises.readFile(path.join(__dirname, 'input.txt'))
     const parsedArray = parseArray(inputData.toString())
-    const numberOfTrees = findTrees(parsedArray)
-    console.log(`Number of trees: ${numberOfTrees}`)
+    return findTrees(parsedArray)
 }
 
-start().catch(console.error)
+export default start

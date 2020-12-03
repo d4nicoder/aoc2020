@@ -29,10 +29,7 @@ const parseLine = (line: string): IPasswordDetails => {
     }
 }
 
-const start = async () => {
-    console.log(`Advent Of Code 2020.`)
-    console.log(`Day 02 problem nº 1`)
-    console.log(`=================================`)
+const start = async (): Promise<number> => {
     const inputFile = await fs.promises.readFile(path.join(__dirname, 'input.txt'))
     const inputFileData = inputFile.toString().split('\n').filter((line) => line.trim() !== '')
 
@@ -52,7 +49,7 @@ const start = async () => {
         return checkLetterTimes(lineData.password, lineData.letter, lineData.min, lineData.max)
     })
 
-    console.log(`    - There are ${validPasswords.length} valid passwords`)
+    return validPasswords.length
 }
 
 export default start
