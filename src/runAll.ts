@@ -50,7 +50,7 @@ const runAll = async () => {
     } catch (e) {
         console.error(e)
     }
-    console.log('\n***********************\n')
+    console.log('\n***********************************************************************\n')
     const end = new Date()
     console.log(`Total time elapsed: ${end.getTime() - start.getTime()} ms`)
 }
