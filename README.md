@@ -13,3 +13,7 @@ All source files are in the ./src folder and compiled in ./dist. You can run all
 ```bash
 npm start
 ```
+
+## Solutions
+
+All the solutions are in the **results.txt** file.
