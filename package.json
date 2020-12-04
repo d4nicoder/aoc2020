@@ -8,8 +8,9 @@
   "scripts": {
     "prebuild": "rm -Rf ./dist",
     "build": "tsc",
-    "postbuild": "cpy '**/*' '!**/*.ts' ../dist/ --cwd=src/ --no-overwrite --parents",
-    "start": "node dist/runAll.js"
+    "postbuild": "cpy '**/*' '!**/*.ts' ../dist/ --cwd=src/ --no-overwrite --parents && npm run sumary",
+    "start": "node dist/runAll.js",
+    "sumary": "node dist/runAll.js > results.txt"
   },
   "license": "MIT",
   "devDependencies": {
