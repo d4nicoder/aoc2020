@@ -10,7 +10,8 @@
     "build": "tsc",
     "postbuild": "cpy '**/*' '!**/*.ts' ../dist/ --cwd=src/ --no-overwrite --parents && npm run sumary",
     "start": "node dist/runAll.js",
-    "sumary": "node dist/runAll.js > results.txt"
+    "sumary": "node dist/runAll.js > results.txt",
+    "test": "ts-node"
   },
   "license": "MIT",
   "devDependencies": {

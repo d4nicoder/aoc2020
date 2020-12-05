@@ -13,6 +13,9 @@ import Day03Problem02 from './03/Day03-Problem02'
 import Day04Problem01 from './04/Day04-Problem01'
 import Day04Problem02 from './04/Day04-Problem02'
 
+import Day05Problem01 from './05/Day05-Problem01'
+import Day05Problem02 from './05/Day05-Problem02'
+
 const bgRed = '\x1b[41m'
 const fgYellow = '\x1b[33m'
 const fgRed = '\x1b[31m'
@@ -61,6 +64,17 @@ const runAll = async () => {
     }
     try {
         console.log(`    - Day 4, problem 2: ${await Day04Problem02()}`)
+    } catch (e) {
+        console.error(e)
+    }
+
+    try {
+        console.log(`    - Day 5, problem 1: ${await Day05Problem01()}`)
+    } catch (e) {
+        console.error(e)
+    }
+    try {
+        console.log(`    - Day 5, problem 2: ${await Day05Problem02()}`)
     } catch (e) {
         console.error(e)
     }
