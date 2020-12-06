@@ -5,44 +5,44 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const readLines_1 = __importDefault(require("../readLines"));
 const path_1 = __importDefault(require("path"));
-const getGroupsResponses = (lines) => {
-    const groupsResponses = [];
-    let tempResponses = new Map();
+const getGroupsAnswers = (lines) => {
+    const groupsAnswers = [];
+    let tempAnswers = new Map();
     let peopleInGroup = 0;
     for (let i = 0; i < lines.length; i++) {
         if (lines[i] === '') {
             // new group
-            let validResponses = 0;
-            for (let letter of Array.from(tempResponses.keys())) {
-                const times = tempResponses.get(letter);
+            let validAnswers = 0;
+            for (let letter of Array.from(tempAnswers.keys())) {
+                const times = tempAnswers.get(letter);
                 if (times && times === peopleInGroup) {
-                    validResponses++;
+                    validAnswers++;
                 }
             }
-            groupsResponses.push(validResponses);
-            tempResponses = new Map();
+            groupsAnswers.push(validAnswers);
+            tempAnswers = new Map();
             peopleInGroup = 0;
         }
         else {
-            const responses = lines[i].split('');
-            for (let r = 0; r < responses.length; r++) {
-                const letter = responses[r];
-                if (tempResponses.has(letter)) {
-                    const times = tempResponses.get(letter);
+            const answers = lines[i].split('');
+            for (let r = 0; r < answers.length; r++) {
+                const letter = answers[r];
+                if (tempAnswers.has(letter)) {
+                    const times = tempAnswers.get(letter);
                     if (typeof times === 'number') {
-                        tempResponses.set(letter, times + 1);
+                        tempAnswers.set(letter, times + 1);
                     }
                 }
                 else {
-                    tempResponses.set(letter, 1);
+                    tempAnswers.set(letter, 1);
                 }
             }
             peopleInGroup++;
         }
     }
-    return groupsResponses;
+    return groupsAnswers;
 };
-const getTotalResponses = (answers) => {
+const getTotalAnswers = (answers) => {
     return answers.reduce((accum, item) => {
         accum += item;
         return accum;
@@ -50,7 +50,7 @@ const getTotalResponses = (answers) => {
 };
 const start = async () => {
     const lines = await readLines_1.default(path_1.default.join(__dirname, 'input.txt'), true);
-    const groupsResponses = getGroupsResponses(lines);
-    return getTotalResponses(groupsResponses);
+    const groupsAnswers = getGroupsAnswers(lines);
+    return getTotalAnswers(groupsAnswers);
 };
 exports.default = start;

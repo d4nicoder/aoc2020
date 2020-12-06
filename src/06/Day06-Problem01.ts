@@ -1,24 +1,24 @@
 import readLines from '../readLines'
 import path from 'path'
 
-const getGroupsResponses = (lines: string[]): number[] => {
+const getGroupsAnswers = (lines: string[]): number[] => {
 
-    const groupsResponses: number[] = []
-    let tempResponses: string[] = []
+    const groupsAnswers: number[] = []
+    let tempAnswers: string[] = []
 
     for (let i = 0; i < lines.length; i++) {
         if (lines[i] === '') {
             // new group
-            groupsResponses.push(tempResponses.length)
-            tempResponses = []
+            groupsAnswers.push(tempAnswers.length)
+            tempAnswers = []
         }
-        const responses = lines[i].split('').filter((letter: string) => tempResponses.indexOf(letter) < 0)
-        tempResponses = tempResponses.concat(responses)
+        const answers = lines[i].split('').filter((letter: string) => tempAnswers.indexOf(letter) < 0)
+        tempAnswers = tempAnswers.concat(answers)
     }
-    return groupsResponses
+    return groupsAnswers
 }
 
-const getTotalResponses = (answers: number[]): number => {
+const getTotalAnswers = (answers: number[]): number => {
     return answers.reduce((accum: number, item: number) => {
         accum += item
         return accum
@@ -26,9 +26,9 @@ const getTotalResponses = (answers: number[]): number => {
 }
 const start = async (): Promise<number> => {
     const lines = await readLines(path.join(__dirname, 'input.txt'), true)
-    const groupsResponses: number[] = getGroupsResponses(lines)
+    const groupsAnswers: number[] = getGroupsAnswers(lines)
 
-    return getTotalResponses(groupsResponses)
+    return getTotalAnswers(groupsAnswers)
 }
 
 export default start

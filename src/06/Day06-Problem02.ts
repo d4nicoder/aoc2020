@@ -1,45 +1,45 @@
 import readLines from '../readLines'
 import path from 'path'
 
-const getGroupsResponses = (lines: string[]): number[] => {
+const getGroupsAnswers = (lines: string[]): number[] => {
 
-    const groupsResponses: number[] = []
-    let tempResponses: Map<string, number> = new Map()
+    const groupsAnswers: number[] = []
+    let tempAnswers: Map<string, number> = new Map()
     let peopleInGroup: number = 0
 
     for (let i = 0; i < lines.length; i++) {
         if (lines[i] === '') {
             // new group
-            let validResponses = 0
-            for (let letter of Array.from(tempResponses.keys())) {
-                const times = tempResponses.get(letter)
+            let validAnswers = 0
+            for (let letter of Array.from(tempAnswers.keys())) {
+                const times = tempAnswers.get(letter)
                 if (times && times === peopleInGroup) {
-                    validResponses ++
+                    validAnswers ++
                 }
             }
-            groupsResponses.push(validResponses)
-            tempResponses = new Map()
+            groupsAnswers.push(validAnswers)
+            tempAnswers = new Map()
             peopleInGroup = 0
         } else {
-            const responses = lines[i].split('')
-            for (let r = 0; r < responses.length; r++) {
-                const letter = responses[r]
-                if (tempResponses.has(letter)) {
-                    const times = tempResponses.get(letter)
+            const answers = lines[i].split('')
+            for (let r = 0; r < answers.length; r++) {
+                const letter = answers[r]
+                if (tempAnswers.has(letter)) {
+                    const times = tempAnswers.get(letter)
                     if (typeof times === 'number') {
-                        tempResponses.set(letter, times + 1)
+                        tempAnswers.set(letter, times + 1)
                     }
                 } else {
-                    tempResponses.set(letter, 1)
+                    tempAnswers.set(letter, 1)
                 }
             }
             peopleInGroup++
         }
     }
-    return groupsResponses
+    return groupsAnswers
 }
 
-const getTotalResponses = (answers: number[]): number => {
+const getTotalAnswers = (answers: number[]): number => {
     return answers.reduce((accum: number, item: number) => {
         accum += item
         return accum
@@ -47,8 +47,8 @@ const getTotalResponses = (answers: number[]): number => {
 }
 const start = async (): Promise<number> => {
     const lines = await readLines(path.join(__dirname, 'input.txt'), true)
-    const groupsResponses: number[] = getGroupsResponses(lines)
+    const groupsAnswers: number[] = getGroupsAnswers(lines)
 
-    return getTotalResponses(groupsResponses)
+    return getTotalAnswers(groupsAnswers)
 }
 export default start
