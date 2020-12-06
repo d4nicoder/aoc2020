@@ -1,6 +1,11 @@
 import fs from 'fs'
 
-export default async (filename: string): Promise<string[]> => {
+export default async (filename: string, preserveBlankLines?: boolean): Promise<string[]> => {
     const data = await fs.promises.readFile(filename)
-    return data.toString().split('\n').map((line) => line.trim()).filter((line) => line !== '')
+    const lines = data.toString().split('\n').map((line) => line.trim())
+    if (!preserveBlankLines) {
+        return lines.filter((line) => line !== '')
+    } else {
+        return lines
+    }
 }

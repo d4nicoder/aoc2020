@@ -19,7 +19,9 @@
     - Day 4, problem 2: 147
     - Day 5, problem 1: 911
     - Day 5, problem 2: 629
+    - Day 6, problem 1: 6799
+    - Day 6, problem 2: 3354
 
 ***********************************************************************
 
-Total time elapsed: 60 ms
+Total time elapsed: 74 ms
