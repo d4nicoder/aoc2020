@@ -1,5 +1,6 @@
 import readLines from '../readLines'
 import path from 'path'
+import { main } from 'ts-node/dist/bin'
 
 type IContain = {
     quantity: number;
@@ -11,7 +12,9 @@ type IBag = {
     content: IContain[],
     allowedColors: string[],
 }
+
 const colorsTree: Map<string, IBag> = new Map()
+const colorParents: Map<string, string[]> = new Map()
 
 const parseLine = (line: string): void => {
     const regExpPrimaryColor = /^(.*) bags contain/
@@ -27,6 +30,19 @@ const parseLine = (line: string): void => {
                     quantity: parseInt(details[1], 10),
                     color: details[2]
                 })
+
+                // store the parents
+                if (colorParents.has(details[2])) {
+                    const colorP = colorParents.get(details[2])
+                    if (colorP) {
+                        if (colorP.indexOf(mainColor) < 0) {
+                            colorP.push(mainColor)
+                        }
+                        colorParents.set(details[2], colorP)
+                    }
+                } else {
+                    colorParents.set(details[2], [mainColor])
+                }
             }
         })
         const bag: IBag = {
@@ -38,8 +54,29 @@ const parseLine = (line: string): void => {
     }
 }
 
-const findColor = (colorAsked: string): number => {
-    return Array.from(colorsTree.values()).filter((bag: IBag) => (bag.allowedColors.indexOf(colorAsked) >= 0)).length
+const stripDuplicated = (colors: string[]): string[] => {
+    const finalColors: string[] = []
+    colors.forEach((color) => {
+        if (finalColors.indexOf(color) < 0) {
+            finalColors.push(color)
+        }
+    })
+    return finalColors
+}
+
+
+const findColor2 = (colorAsked: string): string[] => {
+    let total: string[] = []
+    const colorDetails = colorParents.get(colorAsked)
+    if (colorDetails) {
+        total = total.concat(colorDetails)
+        total = colorDetails.reduce((accum: string[], color: string) => {
+            accum = accum.concat(findColor2(color))
+            accum = stripDuplicated(accum)
+            return accum
+        }, total)
+    }
+    return total
 }
 
 const getAllowedColors = (line: IBag): string[] => {
@@ -62,15 +99,8 @@ const start = async (): Promise<number> => {
         parseLine(line)
     })
 
-    Array.from(colorsTree.keys()).forEach((color: string) => {
-        const bag = colorsTree.get(color)
-        if (bag) {
-            bag.allowedColors = getAllowedColors(bag)
-            colorsTree.set(bag.color, bag)
-        }
-    })
-    const result = findColor('shiny gold')
-    return result
+    const result = findColor2('shiny gold')
+    return result.length
 }
 
 export default start
