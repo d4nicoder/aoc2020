@@ -1,19 +1,6 @@
 import readLines from '../readLines'
 import path from 'path'
-import { main } from 'ts-node/dist/bin'
 
-type IContain = {
-    quantity: number;
-    color: string;
-}
-
-type IBag = {
-    color: string;
-    content: IContain[],
-    allowedColors: string[],
-}
-
-const colorsTree: Map<string, IBag> = new Map()
 const colorParents: Map<string, string[]> = new Map()
 
 const parseLine = (line: string): void => {
@@ -22,15 +9,9 @@ const parseLine = (line: string): void => {
     if (matched) {
         const mainColor: string = matched[1]
         const regexpContains = /([\d]+) (.*) bag[s]?/
-        const contains: IContain[] = []
-        line.split('contain')[1].split(',').forEach((part, index) => {
+        line.split('contain')[1].split(',').forEach((part) => {
             const details = part.match(regexpContains)
             if (details) {
-                contains.push({
-                    quantity: parseInt(details[1], 10),
-                    color: details[2]
-                })
-
                 // store the parents
                 if (colorParents.has(details[2])) {
                     const colorP = colorParents.get(details[2])
@@ -45,12 +26,6 @@ const parseLine = (line: string): void => {
                 }
             }
         })
-        const bag: IBag = {
-            color: mainColor,
-            content: contains,
-            allowedColors: []
-        }
-        colorsTree.set(mainColor, bag)
     }
 }
 
@@ -65,32 +40,18 @@ const stripDuplicated = (colors: string[]): string[] => {
 }
 
 
-const findColor2 = (colorAsked: string): string[] => {
+const findColor = (colorAsked: string): string[] => {
     let total: string[] = []
     const colorDetails = colorParents.get(colorAsked)
     if (colorDetails) {
         total = total.concat(colorDetails)
         total = colorDetails.reduce((accum: string[], color: string) => {
-            accum = accum.concat(findColor2(color))
+            accum = accum.concat(findColor(color))
             accum = stripDuplicated(accum)
             return accum
         }, total)
     }
     return total
-}
-
-const getAllowedColors = (line: IBag): string[] => {
-    const allowedColors: string[] = line.content.reduce((accum: string[], content) => {
-        accum = accum.concat([content.color])
-        if (colorsTree.has(content.color)) {
-            const bag = colorsTree.get(content.color)
-            if (bag) {
-                accum = accum.concat(getAllowedColors(bag))
-            }
-        }
-        return accum
-    }, [])
-    return allowedColors
 }
 
 const start = async (): Promise<number> => {
@@ -99,7 +60,7 @@ const start = async (): Promise<number> => {
         parseLine(line)
     })
 
-    const result = findColor2('shiny gold')
+    const result = findColor('shiny gold')
     return result.length
 }
 
