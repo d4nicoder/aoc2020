@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const readLines_1 = __importDefault(require("../readLines"));
 const path_1 = __importDefault(require("path"));
 const colorsTree = new Map();
+const colorParents = new Map();
 const parseLine = (line) => {
     const regExpPrimaryColor = /^(.*) bags contain/;
     const matched = line.match(regExpPrimaryColor);
@@ -20,6 +21,19 @@ const parseLine = (line) => {
                     quantity: parseInt(details[1], 10),
                     color: details[2]
                 });
+                // store the parents
+                if (colorParents.has(details[2])) {
+                    const colorP = colorParents.get(details[2]);
+                    if (colorP) {
+                        if (colorP.indexOf(mainColor) < 0) {
+                            colorP.push(mainColor);
+                        }
+                        colorParents.set(details[2], colorP);
+                    }
+                }
+                else {
+                    colorParents.set(details[2], [mainColor]);
+                }
             }
         });
         const bag = {
@@ -30,8 +44,27 @@ const parseLine = (line) => {
         colorsTree.set(mainColor, bag);
     }
 };
-const findColor = (colorAsked) => {
-    return Array.from(colorsTree.values()).filter((bag) => (bag.allowedColors.indexOf(colorAsked) >= 0)).length;
+const stripDuplicated = (colors) => {
+    const finalColors = [];
+    colors.forEach((color) => {
+        if (finalColors.indexOf(color) < 0) {
+            finalColors.push(color);
+        }
+    });
+    return finalColors;
+};
+const findColor2 = (colorAsked) => {
+    let total = [];
+    const colorDetails = colorParents.get(colorAsked);
+    if (colorDetails) {
+        total = total.concat(colorDetails);
+        total = colorDetails.reduce((accum, color) => {
+            accum = accum.concat(findColor2(color));
+            accum = stripDuplicated(accum);
+            return accum;
+        }, total);
+    }
+    return total;
 };
 const getAllowedColors = (line) => {
     const allowedColors = line.content.reduce((accum, content) => {
@@ -51,14 +84,7 @@ const start = async () => {
     lines.forEach((line) => {
         parseLine(line);
     });
-    Array.from(colorsTree.keys()).forEach((color) => {
-        const bag = colorsTree.get(color);
-        if (bag) {
-            bag.allowedColors = getAllowedColors(bag);
-            colorsTree.set(bag.color, bag);
-        }
-    });
-    const result = findColor('shiny gold');
-    return result;
+    const result = findColor2('shiny gold');
+    return result.length;
 };
 exports.default = start;

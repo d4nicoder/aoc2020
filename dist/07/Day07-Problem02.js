@@ -13,7 +13,7 @@ const parseLine = (line) => {
         const mainColor = matched[1];
         const regexpContains = /([\d]+) (.*) bag[s]?/;
         const contains = [];
-        line.split('contain')[1].split(',').forEach((part, index) => {
+        line.split('contain')[1].split(',').forEach((part) => {
             const details = part.match(regexpContains);
             if (details) {
                 contains.push({
@@ -24,46 +24,27 @@ const parseLine = (line) => {
         });
         const bag = {
             color: mainColor,
-            content: contains,
-            allowedColors: [],
-            allowedColorsNum: 0,
+            content: contains
         };
         colorsTree.set(mainColor, bag);
     }
 };
-const findNumber = (colorAsked) => {
-    const bag = colorsTree.get(colorAsked);
-    if (bag) {
-        return bag.allowedColorsNum;
+const findChilds = (colorAsked) => {
+    let childs = 0;
+    const details = colorsTree.get(colorAsked);
+    if (details) {
+        childs = details.content.reduce((accum, color) => {
+            accum += color.quantity + (findChilds(color.color) * color.quantity);
+            return accum;
+        }, 0);
     }
-    return -1;
-};
-const getAllowedColors = (line, multiply) => {
-    const allowedColors = line.content.reduce((accum, content) => {
-        accum += content.quantity * multiply;
-        if (colorsTree.has(content.color)) {
-            const bag = colorsTree.get(content.color);
-            if (bag) {
-                accum += getAllowedColors(bag, content.quantity * multiply);
-            }
-        }
-        return accum;
-    }, 0);
-    return allowedColors;
+    return childs;
 };
 const start = async () => {
     const lines = await readLines_1.default(path_1.default.join(__dirname, 'input.txt'));
     lines.forEach((line) => {
         parseLine(line);
     });
-    Array.from(colorsTree.keys()).forEach((color) => {
-        const bag = colorsTree.get(color);
-        if (bag) {
-            bag.allowedColorsNum = getAllowedColors(bag, 1);
-            colorsTree.set(bag.color, bag);
-        }
-    });
-    const result = findNumber('shiny gold');
-    return result;
+    return findChilds('shiny gold');
 };
 exports.default = start;
