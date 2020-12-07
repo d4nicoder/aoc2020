@@ -8,9 +8,7 @@ type IContain = {
 
 type IBag = {
     color: string;
-    content: IContain[],
-    allowedColors: string[],
-    allowedColorsNum: number
+    content: IContain[];
 }
 const colorsTree: Map<string, IBag> = new Map()
 
@@ -21,7 +19,7 @@ const parseLine = (line: string): void => {
         const mainColor: string = matched[1]
         const regexpContains = /([\d]+) (.*) bag[s]?/
         const contains: IContain[] = []
-        line.split('contain')[1].split(',').forEach((part, index) => {
+        line.split('contain')[1].split(',').forEach((part) => {
             const details = part.match(regexpContains)
             if (details) {
                 contains.push({
@@ -32,33 +30,22 @@ const parseLine = (line: string): void => {
         })
         const bag: IBag = {
             color: mainColor,
-            content: contains,
-            allowedColors: [],
-            allowedColorsNum: 0,
+            content: contains
         }
         colorsTree.set(mainColor, bag)
     }
 }
 
-const findNumber = (colorAsked: string): number => {
-    const bag = colorsTree.get(colorAsked)
-    if (bag) {
-        return bag.allowedColorsNum
+const findChilds = (colorAsked: string): number => {
+    let childs: number = 0
+    const details = colorsTree.get(colorAsked)
+    if (details) {
+        childs = details.content.reduce((accum: number, color) => {
+            accum += color.quantity + (findChilds(color.color) * color.quantity)
+            return accum
+        }, 0)
     }
-    return -1
-}
-const getAllowedColors = (line: IBag, multiply: number): number => {
-    const allowedColors: number = line.content.reduce((accum: number, content) => {
-        accum += content.quantity * multiply
-        if (colorsTree.has(content.color)) {
-            const bag = colorsTree.get(content.color)
-            if (bag) {
-                accum += getAllowedColors(bag, content.quantity * multiply)
-            }
-        }
-        return accum
-    }, 0)
-    return allowedColors
+    return childs
 }
 
 const start = async (): Promise<number> => {
@@ -66,16 +53,7 @@ const start = async (): Promise<number> => {
     lines.forEach((line) => {
         parseLine(line)
     })
-
-    Array.from(colorsTree.keys()).forEach((color: string) => {
-        const bag = colorsTree.get(color)
-        if (bag) {
-            bag.allowedColorsNum = getAllowedColors(bag, 1)
-            colorsTree.set(bag.color, bag)
-        }
-    })
-    const result = findNumber('shiny gold')
-    return result
+    return findChilds('shiny gold')
 }
 
 export default start
