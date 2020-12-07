@@ -9,21 +9,21 @@
        https://github.com/danitetus/aoc2020     / __/| |_| / __/| |_| |
                                                |_____|\___/_____|\___/
 
-    - Day 1, problem 1: 658899
-    - Day 1, problem 2: 155806250
-    - Day 2, problem 1: 493
-    - Day 2, problem 2: 593
-    - Day 3, problem 1: 280
-    - Day 3, problem 2: 4355551200
-    - Day 4, problem 1: 213
-    - Day 4, problem 2: 147
-    - Day 5, problem 1: 911
-    - Day 5, problem 2: 629
-    - Day 6, problem 1: 6799
-    - Day 6, problem 2: 3354
-    - Day 7, problem 1: 224
-    - Day 7, problem 2: 1488
+    - Day 1, problem 1: 658899 (2 ms)
+    - Day 1, problem 2: 155806250 (25 ms)
+    - Day 2, problem 1: 493 (3 ms)
+    - Day 2, problem 2: 593 (2 ms)
+    - Day 3, problem 1: 280 (2 ms)
+    - Day 3, problem 2: 4355551200 (2 ms)
+    - Day 4, problem 1: 213 (9 ms)
+    - Day 4, problem 2: 147 (6 ms)
+    - Day 5, problem 1: 911 (2 ms)
+    - Day 5, problem 2: 629 (3 ms)
+    - Day 6, problem 1: 6799 (5 ms)
+    - Day 6, problem 2: 3354 (9 ms)
+    - Day 7, problem 1: 224 (317 ms)
+    - Day 7, problem 2: 1488 (96 ms)
 
 ***********************************************************************
 
-Total time elapsed: 370 ms
+Total time elapsed: 485 ms

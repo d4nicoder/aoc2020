@@ -23,90 +23,107 @@ const bgRed = '\x1b[41m';
 const fgYellow = '\x1b[33m';
 const fgRed = '\x1b[31m';
 const reset = '\x1b[0m';
+const getTimeElapsed = (startTime) => {
+    return Date.now() - startTime.getTime();
+};
 const runAll = async () => {
     const welcome = await fs_1.default.promises.readFile(path_1.default.join(__dirname, 'welcome.txt'));
     console.log(welcome.toString());
     const start = new Date();
     try {
-        console.log(`    - Day 1, problem 1: ${await Day01_Problem01_1.default()}`);
+        const startProblem01 = new Date();
+        console.log(`    - Day 1, problem 1: ${await Day01_Problem01_1.default()} (${getTimeElapsed(startProblem01)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 1, problem 2: ${await Day01_Problem02_1.default()}`);
+        const startProblem01b = new Date();
+        console.log(`    - Day 1, problem 2: ${await Day01_Problem02_1.default()} (${getTimeElapsed(startProblem01b)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 2, problem 1: ${await Day02_Problem01_1.default()}`);
+        const startProblem02 = new Date();
+        console.log(`    - Day 2, problem 1: ${await Day02_Problem01_1.default()} (${getTimeElapsed(startProblem02)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 2, problem 2: ${await Day02_Problem02_1.default()}`);
+        const startProblem02b = new Date();
+        console.log(`    - Day 2, problem 2: ${await Day02_Problem02_1.default()} (${getTimeElapsed(startProblem02b)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 3, problem 1: ${await Day03_Problem01_1.default()}`);
+        const startProblem03 = new Date();
+        console.log(`    - Day 3, problem 1: ${await Day03_Problem01_1.default()} (${getTimeElapsed(startProblem03)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 3, problem 2: ${await Day03_Problem02_1.default()}`);
+        const startProblem03b = new Date();
+        console.log(`    - Day 3, problem 2: ${await Day03_Problem02_1.default()} (${getTimeElapsed(startProblem03b)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 4, problem 1: ${await Day04_Problem01_1.default()}`);
+        const startProblem04 = new Date();
+        console.log(`    - Day 4, problem 1: ${await Day04_Problem01_1.default()} (${getTimeElapsed(startProblem04)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 4, problem 2: ${await Day04_Problem02_1.default()}`);
+        const startProblem04b = new Date();
+        console.log(`    - Day 4, problem 2: ${await Day04_Problem02_1.default()} (${getTimeElapsed(startProblem04b)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 5, problem 1: ${await Day05_Problem01_1.default()}`);
+        const startProblem05 = new Date();
+        console.log(`    - Day 5, problem 1: ${await Day05_Problem01_1.default()} (${getTimeElapsed(startProblem05)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 5, problem 2: ${await Day05_Problem02_1.default()}`);
+        const startProblem05b = new Date();
+        console.log(`    - Day 5, problem 2: ${await Day05_Problem02_1.default()} (${getTimeElapsed(startProblem05b)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 6, problem 1: ${await Day06_Problem01_1.default()}`);
+        const startProblem06 = new Date();
+        console.log(`    - Day 6, problem 1: ${await Day06_Problem01_1.default()} (${getTimeElapsed(startProblem06)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 6, problem 2: ${await Day06_Problem02_1.default()}`);
+        const startProblem06b = new Date();
+        console.log(`    - Day 6, problem 2: ${await Day06_Problem02_1.default()} (${getTimeElapsed(startProblem06b)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 7, problem 1: ${await Day07_Problem01_1.default()}`);
+        const startProblem07 = new Date();
+        console.log(`    - Day 7, problem 1: ${await Day07_Problem01_1.default()} (${getTimeElapsed(startProblem07)} ms)`);
     }
     catch (e) {
         console.error(e);
     }
     try {
-        console.log(`    - Day 7, problem 2: ${await Day07_Problem02_1.default()}`);
+        const startProblem07b = new Date();
+        console.log(`    - Day 7, problem 2: ${await Day07_Problem02_1.default()} (${getTimeElapsed(startProblem07b)} ms)`);
     }
     catch (e) {
         console.error(e);
