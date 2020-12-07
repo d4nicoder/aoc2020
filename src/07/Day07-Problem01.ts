@@ -20,12 +20,12 @@ const parseLine = (line: string): void => {
         const mainColor: string = matched[1]
         const regexpContains = /([\d]+) (.*) bag[s]?/
         const contains: IContain[] = []
-        line.split(',').splice(1).forEach((part, index) => {
+        line.split('contain')[1].split(',').forEach((part, index) => {
             const details = part.match(regexpContains)
             if (details) {
                 contains.push({
                     quantity: parseInt(details[1], 10),
-                    color: details[1]
+                    color: details[2]
                 })
             }
         })
@@ -39,14 +39,7 @@ const parseLine = (line: string): void => {
 }
 
 const findColor = (colorAsked: string): number => {
-    return Array.from(colorsTree.values()).filter((bag: IBag) => {
-        if (bag.allowedColors.indexOf(colorAsked) >= 0) {
-            console.log(`${bag.color} is valid (${bag.allowedColors.join(',')})`)
-            return true
-        } else {
-            console.log(`${bag.color} is not valid (${bag.allowedColors.join(',')})`)
-        }
-    }).length
+    return Array.from(colorsTree.values()).filter((bag: IBag) => (bag.allowedColors.indexOf(colorAsked) >= 0)).length
 }
 
 const getAllowedColors = (line: IBag): string[] => {
@@ -64,10 +57,14 @@ const getAllowedColors = (line: IBag): string[] => {
 }
 
 const start = async (): Promise<number> => {
-    const lines = await readLines(path.join(__dirname, 'sample.txt'))
+    const lines = await readLines(path.join(__dirname, 'input.txt'))
     lines.forEach((line) => {
         parseLine(line)
     })
+
+    // Array.from(colorsTree.values()).forEach((bag: IBag) => {
+    //     console.log(bag)
+    // })
 
     Array.from(colorsTree.keys()).forEach((color: string) => {
         const bag = colorsTree.get(color)
@@ -81,5 +78,5 @@ const start = async (): Promise<number> => {
 }
 
 start().then((result) => {
-    console.log(`Result: ${result}`)
+    console.log(`Result for color 'shiny gold': ${result}`)
 }).catch(console.error)
