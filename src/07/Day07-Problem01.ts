@@ -62,10 +62,6 @@ const start = async (): Promise<number> => {
         parseLine(line)
     })
 
-    // Array.from(colorsTree.values()).forEach((bag: IBag) => {
-    //     console.log(bag)
-    // })
-
     Array.from(colorsTree.keys()).forEach((color: string) => {
         const bag = colorsTree.get(color)
         if (bag) {
@@ -77,6 +73,4 @@ const start = async (): Promise<number> => {
     return result
 }
 
-start().then((result) => {
-    console.log(`Result for color 'shiny gold': ${result}`)
-}).catch(console.error)
+export default start

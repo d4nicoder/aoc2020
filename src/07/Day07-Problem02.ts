@@ -26,7 +26,7 @@ const parseLine = (line: string): void => {
             if (details) {
                 contains.push({
                     quantity: parseInt(details[1], 10),
-                    color: details[2]
+                    color: details[2],
                 })
             }
         })
@@ -34,14 +34,10 @@ const parseLine = (line: string): void => {
             color: mainColor,
             content: contains,
             allowedColors: [],
-            allowedColorsNum: 0
+            allowedColorsNum: 0,
         }
         colorsTree.set(mainColor, bag)
     }
-}
-
-const findColor = (colorAsked: string): number => {
-    return Array.from(colorsTree.values()).filter((bag: IBag) => (bag.allowedColors.indexOf(colorAsked) >= 0)).length
 }
 
 const findNumber = (colorAsked: string): number => {
@@ -62,7 +58,6 @@ const getAllowedColors = (line: IBag, multiply: number): number => {
         }
         return accum
     }, 0)
-    //console.log(allowedColors)
     return allowedColors
 }
 
@@ -72,10 +67,6 @@ const start = async (): Promise<number> => {
         parseLine(line)
     })
 
-    // Array.from(colorsTree.values()).forEach((bag: IBag) => {
-    //     console.log(bag)
-    // })
-
     Array.from(colorsTree.keys()).forEach((color: string) => {
         const bag = colorsTree.get(color)
         if (bag) {
@@ -83,12 +74,8 @@ const start = async (): Promise<number> => {
             colorsTree.set(bag.color, bag)
         }
     })
-    //console.log(colorsTree)
-    //const result = findColor('shiny gold')
     const result = findNumber('shiny gold')
     return result
 }
 
-start().then((result) => {
-    console.log(`Result for color 'shiny gold': ${result}`)
-}).catch(console.error)
+export default start
