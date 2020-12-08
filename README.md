@@ -16,4 +16,4 @@ npm start
 
 ## Solutions
 
-All the solutions are in the **results.txt** file.
+All the solutions are in the **[results.txt]("https://github.com/danitetus/aoc2020/blob/main/results.txt")** file.
