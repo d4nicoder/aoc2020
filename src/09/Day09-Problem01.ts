@@ -4,17 +4,13 @@ import path from 'path'
 const findSum = (collection: number[], position: number, preamble: number): boolean => {
     const targetNumber = collection[position]
     const validCollection = collection.slice(position - preamble, position)
-    // console.log(validCollection)
-    // console.log(`Looking for number ${collection[position]}`)
     for (let i = 0; i < validCollection.length; i++) {
         const first = validCollection[i]
         for (let j = i+1; j < validCollection.length; j++) {
             const second = validCollection[j]
-            //console.log(`   - Checking ${first} + ${second} = ${first + second}`)
             if (first + second === targetNumber) {
                 return true
             }
-        //console.log(`       * Not valid`)
         }
     }
     return false
