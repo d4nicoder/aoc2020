@@ -38,55 +38,58 @@ const processLine = (previous: number, line: number): number => {
 
 // [1, 2, 3, 5, 6, 7, 9, 10]
 
-let calls = 0
-let permutaciones: number = 0
-let lastReport = new Date().getTime()
-const findCombination = (collection: number[], index: number, voltage: number): number => {
-    permutaciones += 1
-    if (Date.now() - lastReport > 5000) {
-        console.log(`Permutaciones: ${permutaciones}`)
-        lastReport = Date.now()
+const factorial = (num: number): number => {
+    let total = 0
+    for (let i = 1; i <= num; i++) {
+        total = total + i
     }
-    calls += 1
-    let previous = index === 0 ? 0 : collection[index - 1]
-
-    //console.log(`${calls}: length: ${collection.length}, index: ${index}, previous: ${previous}, actual ${collection[index]}`)
-    if (voltage - collection[index] <= 3) {
-        //console.log(`${voltage} - ${collection[index]} <= 3. exit(0)`)
-        return 0
-    }
-    if (voltage - collection[index] === 3) {
-        //console.log(collection)
-        return 0
-    }
-
-    const newCollection: number[] = Array().concat(collection)
-    newCollection.splice(index, 1)
-    let variants: number = 1
-
-    if (newCollection[index] - previous > 3) {
-        return findCombination(collection, index + 1, voltage)
-    }
-    // console.log(newCollection.join(','))
-    if (newCollection.length <= index) {
-        //console.log('New collection small than index. Exit(0)')
-        return 0
-    }
-    if (newCollection[index + 1] - newCollection[index] > 3) {
-        //console.log(`${newCollection[index + 1]} - ${newCollection[index]} > 3. Next item`)
-        variants += findCombination(collection, index + 1, voltage)
-        return variants
-    } else {
-        //console.log('Same index, new collection')
-        variants += findCombination(newCollection, index, voltage)
-        variants += findCombination(collection, index + 1, voltage)
-        return variants
-    }
-    return variants
+    return total
 }
 
+const canDelete = (collection: number[], index: number, voltage: number): number => {
+    console.log(`Can delete ${collection[index]} ?`)
+    if (index >= collection.length - 1) {
+        console.log(`    - Nope (end of array)`)
+        return 0
+    }
+
+    let next = collection[index + 1]
+    let previous = index === 0 ? 0 : collection[index - 1]
+
+    let combinations = 0
+    while (next - previous < 4) {
+        console.log(`    - ${next} - ${previous} = ${next - previous} (deleting ${collection[index]}`)
+        combinations++
+        index++
+        next = collection[index + 1]
+    }
+    console.log(`    ==================== ${combinations}`)
+    return combinations
+}
+
+const canDeleteReverse = (collection: number[], index: number, voltage: number): number => {
+    if (index >= collection.length - 1) {
+        return 0
+    }
+
+    const next = collection[index + 1]
+    let previous = index === 0 ? 0 : collection[index - 1]
+    index --
+
+    let combinations = 0
+    while (index >= 0 && next - previous < 3) {
+        console.log(`   - ${next} - ${previous} = ${next - previous}`)
+        previous = collection[index - 1]
+        combinations++
+        index--
+    }
+    return combinations
+}
+
+
+
 const start = async (): Promise<number> => {
-    const lines = await readLines(path.join(__dirname, 'input.txt'))
+    const lines = await readLines(path.join(__dirname, 'small_sample.txt'))
 
     const linesNumber = lines.map((line) => parseInt(line, 10))
     linesNumber.sort((a, b) => {
@@ -115,10 +118,17 @@ const start = async (): Promise<number> => {
     finalVoltaje = linesNumber[linesNumber.length - 1] + 3
     console.log(`Final voltage: ${finalVoltaje}`)
     console.log(lastOrder.join(','))
-    //return diferences[1] * diferences[3]
-    return findCombination(lastOrder, 0, finalVoltaje) + 1
+
+    let combinations = 1
+    for (let i = 0; i <= lastOrder.length; i++) {
+        const comb = canDelete(lastOrder, i, finalVoltaje)
+        if (comb) {
+            combinations += comb**2
+        }
+    }
+    return combinations
 }
 
 start().then((result) => {
-    console.log(`Result: ${result}`)
+    console.log(`Result: ${result} (${factorial(result)})`)
 }).catch(console.error)
