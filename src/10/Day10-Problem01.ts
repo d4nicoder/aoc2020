@@ -1,13 +1,13 @@
 import readLines from '../readLines'
 import path from 'path'
 
-type Diferences = {
+type Differences = {
     1: number;
     2: number;
     3: number;
 }
 
-const diferences: Diferences = {
+const differences: Differences = {
     1: 0,
     2: 0,
     3: 1
@@ -15,19 +15,18 @@ const diferences: Diferences = {
 
 const processLine = (previous: number, line: number): number => {
     const diff = line - previous
-    //console.log(`Processing ${line} - ${previous} = ${diff}`)
     if (diff > 3) {
         return -1
     }
     switch (diff) {
         case 1:
-            diferences[1] += 1
+            differences[1] += 1
             break
         case 2:
-            diferences[2] += 1
+            differences[2] += 1
             break
         case 3:
-            diferences[3] += 1
+            differences[3] += 1
             break
     }
     return line
@@ -50,18 +49,14 @@ const start = async (): Promise<number> => {
     let previous: number = 0
     for (let i = 0; i < linesNumber.length; i++) {
         const line = linesNumber[i]
-        //console.log(`${line} ${typeof line}`)
         if (processLine(previous, line) < 0) {
-            result = diferences[1] * diferences[3]
-            console.log(diferences)
+            result = differences[1] * differences[3]
+            console.log(differences)
             return result
         }
         previous = line
     }
-    console.log(diferences)
-    return diferences[1] * diferences[3]
+    return differences[1] * differences[3]
 }
 
-start().then((result) => {
-    console.log(`Result: ${result}`)
-}).catch(console.error)
+export default start
