@@ -1,10 +1,14 @@
 import readLines from '../readLines'
 import path from 'path'
-import crypto from 'crypto'
 
 let seats: string[][] = []
 let rounds: number = 0
 let lastHash: string = ''
+
+const size = {
+    rows: 0,
+    cols: 0
+}
 
 const findDirection = (collection: string[][], row: number, rowDirection: number, col: number, colDirection: number): number => {
     let found = 0
@@ -26,7 +30,7 @@ const findDirection = (collection: string[][], row: number, rowDirection: number
     return collection[row][col] === '#' ? 1 : 0
 }
 
-const getAdyacentNum = (row: number, col: number): number => {
+const getAdjacentNum = (row: number, col: number): number => {
     let num: number = 0
 
     num += findDirection(seats, row - 1, -1, col-1, -1)
@@ -49,79 +53,66 @@ const getAdyacentNum = (row: number, col: number): number => {
 }
 
 const nextRound = (): boolean => {
-    let matrix: string = ''
-    for (let r = 0; r < seats.length; r++) {
-        for (let c = 0; c < seats[r].length; c++) {
+    let matrix: string[][] = []
+    for (let r = 0; r < size.rows; r++) {
+        const row: string[] = []
+        for (let c = 0; c < size.cols; c++) {
             const itemType = seats[r][c]
-            const adjacent = getAdyacentNum(r, c)
+            const adjacent = getAdjacentNum(r, c)
             if (itemType === 'L') {
                 if (adjacent === 0) {
                     // Becomes occupied
-                    matrix += '#'
+                    row.push('#')
                 } else {
-                    // Becomes free
-                    matrix += 'L'
+                    row.push('L')
                 }
             } else if (itemType === '#') {
                 if (adjacent >= 5) {
-                    matrix += 'L'
+                    row.push('L')
                 } else {
-                    matrix += '#'
+                    row.push('#')
                 }
             } else {
-                matrix += '.'
+                row.push('.')
             }
         }
-        matrix += '\n'
+        matrix.push(row)
     }
-    const tempSeats = convertMatrix(matrix)
-    const hash = getHash(tempSeats)
+    const hash = getHash(matrix)
     if (lastHash !== hash) {
         lastHash = hash
         rounds++
-        seats = tempSeats
+        seats = matrix
         return true
     }
     return false
 }
 
 const countOccupied = (matrix: string[][]): number => {
-    const occupied = matrix.reduce((accum, item) => {
+    return matrix.reduce((accum, item) => {
         const m = item.join(',').match(/#/gm)
         if (m) {
             accum += m.length
         }
         return accum
     }, 0)
-    return occupied
 }
 
 const getHash = (matrix: string[][]): string => {
-    const str = matrix.reduce((accum, row) => {
+    return matrix.reduce((accum, row) => {
         accum += row.join(',') + ','
         return accum
     }, '')
-    return crypto.createHash('md5').update(str).digest('hex');
-}
-
-const convertMatrix = (matrix: string): string[][] => {
-    const mat: string[][] = []
-    matrix.split('\n').forEach((line) => {
-        if (line.trim() !== '') {
-            const row = line.trim().split('')
-            mat.push(row)
-        }
-    })
-    return mat
 }
 
 const start = async (): Promise<number> => {
     const lines = await readLines(path.join(__dirname, 'input.txt'))
+    size.rows = lines.filter(line => line.trim() !== '').length
     lines.forEach((line) => {
-        // console.log(line)
         const row = line.trim().split('')
         seats.push(row)
     })
+    size.cols = seats[0].length
 
     let working: boolean = true
     while (working) {
