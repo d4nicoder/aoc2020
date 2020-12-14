@@ -31,6 +31,8 @@ const Day12_Problem01_1 = __importDefault(require("./12/Day12-Problem01"));
 const Day12_Problem02_1 = __importDefault(require("./12/Day12-Problem02"));
 const Day13_Problem01_1 = __importDefault(require("./13/Day13-Problem01"));
 const Day13_Problem02_1 = __importDefault(require("./13/Day13-Problem02"));
+const Day14_Problem01_1 = __importDefault(require("./14/Day14-Problem01"));
+const Day14_Problem02_1 = __importDefault(require("./14/Day14-Problem02"));
 const bgRed = '\x1b[41m';
 const fgYellow = '\x1b[33m';
 const fgRed = '\x1b[31m';
@@ -220,6 +222,20 @@ const runAll = async () => {
     try {
         const startProblem13b = new Date();
         console.log(`    - Day 13, problem 2: ${await Day13_Problem02_1.default()} (${getTimeElapsed(startProblem13b)} ms)`);
+    }
+    catch (e) {
+        console.error(e);
+    }
+    try {
+        const startProblem14 = new Date();
+        console.log(`    - Day 14, problem 1: ${await Day14_Problem01_1.default()} (${getTimeElapsed(startProblem14)} ms)`);
+    }
+    catch (e) {
+        console.error(e);
+    }
+    try {
+        const startProblem14b = new Date();
+        console.log(`    - Day 14, problem 2: ${await Day14_Problem02_1.default()} (${getTimeElapsed(startProblem14b)} ms)`);
     }
     catch (e) {
         console.error(e);
