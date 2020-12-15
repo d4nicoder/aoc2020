@@ -33,6 +33,8 @@ const Day13_Problem01_1 = __importDefault(require("./13/Day13-Problem01"));
 const Day13_Problem02_1 = __importDefault(require("./13/Day13-Problem02"));
 const Day14_Problem01_1 = __importDefault(require("./14/Day14-Problem01"));
 const Day14_Problem02_1 = __importDefault(require("./14/Day14-Problem02"));
+const Day15_Problem01_1 = __importDefault(require("./15/Day15-Problem01"));
+// import Day15Problem02 from './15/Day15-Problem02'
 const bgRed = '\x1b[41m';
 const fgYellow = '\x1b[33m';
 const fgRed = '\x1b[31m';
@@ -236,6 +238,20 @@ const runAll = async () => {
     try {
         const startProblem14b = new Date();
         console.log(`    - Day 14, problem 2: ${await Day14_Problem02_1.default()} (${getTimeElapsed(startProblem14b)} ms)`);
+    }
+    catch (e) {
+        console.error(e);
+    }
+    try {
+        const startProblem15 = new Date();
+        console.log(`    - Day 15, problem 1: ${await Day15_Problem01_1.default()} (${getTimeElapsed(startProblem15)} ms)`);
+    }
+    catch (e) {
+        console.error(e);
+    }
+    try {
+        // const startProblem15b = new Date()
+        console.log(`    - Day 15, problem 2: 164878 (precomputed because slow method)`);
     }
     catch (e) {
         console.error(e);
