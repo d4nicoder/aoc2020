@@ -44,7 +44,7 @@ import Day14Problem01 from './14/Day14-Problem01'
 import Day14Problem02 from './14/Day14-Problem02'
 
 import Day15Problem01 from './15/Day15-Problem01'
-// import Day15Problem02 from './15/Day15-Problem02'
+import Day15Problem02 from './15/Day15-Problem02'
 
 
 const bgRed = '\x1b[41m'
@@ -249,8 +249,8 @@ const runAll = async () => {
         console.error(e)
     }
     try {
-        // const startProblem15b = new Date()
-        console.log(`    - Day 15, problem 2: 164878 (precomputed because slow method)`)
+        const startProblem15b = new Date()
+        console.log(`    - Day 15, problem 2: ${await Day15Problem02()} (${getTimeElapsed(startProblem15b)} ms. Needs optimization... maybe one day ;) )`)
     } catch (e) {
         console.error(e)
     }
