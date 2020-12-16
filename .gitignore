@@ -11,6 +11,7 @@ venv
 
 #IDES
 .idea
+.vscode
 
 # Package managers
 yarn.lock

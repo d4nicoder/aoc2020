@@ -46,6 +46,9 @@ import Day14Problem02 from './14/Day14-Problem02'
 import Day15Problem01 from './15/Day15-Problem01'
 import Day15Problem02 from './15/Day15-Problem02'
 
+import Day16Problem01 from './16/Day16-Problem01'
+import Day16Problem02 from './16/Day16-Problem02'
+
 
 const bgRed = '\x1b[41m'
 const fgYellow = '\x1b[33m'
@@ -251,6 +254,19 @@ const runAll = async () => {
     try {
         const startProblem15b = new Date()
         console.log(`    - Day 15, problem 2: ${await Day15Problem02()} (${getTimeElapsed(startProblem15b)} ms. Needs optimization... maybe one day ;) )`)
+    } catch (e) {
+        console.error(e)
+    }
+
+    try {
+        const startProblem16 = new Date()
+        console.log(`    - Day 16, problem 1: ${await Day16Problem01()} (${getTimeElapsed(startProblem16)} ms)`)
+    } catch (e) {
+        console.error(e)
+    }
+    try {
+        const startProblem16b = new Date()
+        console.log(`    - Day 16, problem 2: ${await Day16Problem02()} (${getTimeElapsed(startProblem16b)} ms)`)
     } catch (e) {
         console.error(e)
     }
