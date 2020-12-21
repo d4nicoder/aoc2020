@@ -304,6 +304,59 @@ const arrangeAll = (): ITileNeighbour[][] => {
 
     return matrix
 }
+const getRightBorder = (content: string[][]): string => {
+    return content.reduce((accum: string, row) => {
+        accum += row[row.length - 1]
+        return accum
+    }, '')
+}
+
+const getLeftBorder = (content: string[][]): string => {
+    return content.reduce((accum: string, row) => {
+        accum += row[0]
+        return accum
+    }, '')
+}
+const fixRotation = (reference: string[][], content: string[][], first?: boolean): string[][][] => {
+    const refP = reference
+    const conP = content
+    if (first) {
+        // We have to rotate 0x0 (reference) to be aligned with 0x1 (source)
+        let right = getRightBorder(reference)
+        let left = getLeftBorder(content)
+        for (let r1 = 0; r1 < 2; r1++) {
+            for (let r2 = 0; r2 < 2; r2++) {
+                for (let i = 0; i < 4; i++) {
+                    let right = getRightBorder(reference)
+                    for (let j = 0; j < 4; j++) {
+                        let left = getLeftBorder(content)
+                        if (right === left) {
+                            return [reference, content]
+                        }
+                        content = rotate(1, 1, content)
+                    }
+                    reference = rotate(1, 1, reference)
+                }
+                content = flipVertically(content)
+            }
+            reference = flipVertically(reference)
+        }
+    } else {
+        // We have to rotate content to be
+        const right = getRightBorder(reference)
+        for (let r = 0; r < 2; r++) {
+            for (let i = 0; i < 4; i++) {
+                const left = getLeftBorder(content)
+                if (right === left) {
+                    return [reference, content]
+                }
+                rotate(1, 1, content)
+            }
+            content = flipVertically(content)
+        }
+    }
+    return [refP, conP]
+}
 
 const renderImage = (source: ITileNeighbour[][]) => {
     const matrix: string[] = []
@@ -314,24 +367,37 @@ const renderImage = (source: ITileNeighbour[][]) => {
         for (let c = 0; c < row.length; c++) {
             const tile = row[c]
             // getting tile content
-            let content = TILES.get(row[c].id)
-            let newTile = true
-            if (content) {
-                if (tile.flipH) {
-                    console.log(`Flipping horizontally`)
-                    content = flipHorizontally(content)
-                }
-                if (tile.flipV) {
-                    console.log(`Flipping vertically`)
-                    content = flipVertically(content)
-                }
-                if (tile.rotated) {
-                    const newRotate = 4 - tile.rotated
-                    console.log(`Rotating ${newRotate} times`)
-                    content = rotate(1, newRotate, content)
-                }
-                accum.push(content)
+            let content = TILES.get(row[c].id) || []
+            console.log(`${r},${c}`)
+            if (tile.flipH) {
+                console.log(`   - Flip horizontally`)
+                content = flipHorizontally(content)
+            } else if (tile.flipV) {
+                console.log(`   - Flip vertically`)
+                content = flipHorizontally(content)
             }
+            if (c === 0) {
+                let next = TILES.get(row[c+1].id) || []
+                const nextTile = row[c+1]
+                if (nextTile.flipV) {
+                    console.log(`   - Flip vertically`)
+                    next = flipVertically(next)
+                } else if (nextTile.flipH) {
+                    console.log(`   - Flip horizontally`)
+                    next = flipHorizontally(next)
+                }
+                let res = fixRotation(content, next, true)
+                content = res[0]
+                TILES.set(row[c].id, content)
+                TILES.set(row[c + 1].id, res[1])
+            } else {
+                const before = TILES.get(row[c - 1].id) || []
+                let res = fixRotation(before, content, false)
+                content = res[1]
+                TILES.set(row[c].id, res[1])
+            }
+            let newTile = true
+            accum.push(content)
         }
         console.log(`${accum.length} tiles in this row`)
         for (let r = 0; r < 10; r++) {
