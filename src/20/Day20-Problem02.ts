@@ -31,42 +31,35 @@ const flipHorizontally = (content: string[][]): string[][] => {
 }
 
 const rotateBy90 = (m: string[][]): string[][] => {
-    const length = m.length;
-    //for each layer of the matrix
-    for (let first = 0; first < length >> 1; first++) {
-        let last = length - 1 - first;
-        for (let i = first; i < last; i++) {
-            let top = m[first][i]; //store top
-            m[first][i] = m[last - i][first]; //top = left
-            m[last - i][first] = m[last][last - i]; //left = bottom
-            m[last][last - i] = m[i][last]; //bottom = right
-            m[i][last] = top; //right = top
+    const newGrid: string[][] = []
+    for (let r = m.length - 1; r >= 0; r--) {
+        for (let c = 0; c < m.length; c++) {
+            if (r === m.length - 1) {
+                newGrid[c] = []
+            }
+            newGrid[c][m.length - 1 - r] = m[r][c]
         }
     }
-    return m;
+    return newGrid
 }
 
 const rotate = (direction: number, times: number, content: string[][]): string[][] => {
-    // direction == 1 clockwise
-    // direction == -1 reverse clockwise
+    let result: string[][] = content.map((a) => {
+        return a
+    })
     times = times % 4
     if (times === 0) {
         return content
-    } if (times === 3 && direction === -1) {
+    } if (direction === -1) {
         // Rotate one time to the other direction
-        return rotate(1, 1, content)
-    } else if (times === 2) {
-        // flip vertically and horizontally
-        const flipV = flipVertically(content)
-        return flipHorizontally(flipV)
+        result = rotate(1, 4 - times, content)
     } else {
         // Rotating clockwise n times
-        let result: string[][] = content
         for (let i = 0; i < times; i++) {
             result = rotateBy90(result)
         }
-        return result
     }
+    return result
 }
 
 const saveEdge = (content: string, id: number, rotated: number, flipV: boolean, flipH: boolean) => {
@@ -190,7 +183,6 @@ const getByNeighbours = (maxNeighbours: number, hasNeighbours: ITileNeighbour[],
     if (!Array.isArray(ignoreTiles)) {
         ignoreTiles = []
     }
-    // console.log(`Looking for tiles that have ${maxNeighbours} neighbours and his neighbours are ${hasNeighbours.map(n=>n.id)}, ignoring ${ignoreTiles.map((i) => i.id).join(',')}`)
     let candidates: ICandidates = {}
     candidates = hasNeighbours.reduce((accum: ICandidates, tile) => {
         const neighbours = NEIGHBOURS.get(tile.id)
@@ -231,7 +223,6 @@ const getByNeighbours = (maxNeighbours: number, hasNeighbours: ITileNeighbour[],
         }
         return 0
     }).map((t) => t[1].tile)
-    // console.log(`    - Found ${cnd.map(c => c.id).join(',')}`)
     return cnd[0]
 
 }
@@ -260,41 +251,32 @@ const arrangeAll = (): ITileNeighbour[][] => {
         matrix[r] = Array(SQUARE_LENGTH)
         for (let c = 0; c < SQUARE_LENGTH; c++) {
             if (r === 0 && c === 0) {
-                //console.log(`Top left corner`)
                 // top left corner
                 if (topLeft) {
                     matrix[r][c] = topLeft
                 }
             } else if (r === 0 && c === SQUARE_LENGTH - 1) {
-                //console.log(`Top right corner`)
                 // Top right corner, find tile that is corner and neighbour from matrix[r][c-1]
                 matrix[r][c] = getByNeighbours(2, [matrix[r][c-1]], choosen)
             } else if (r === SQUARE_LENGTH - 1 && c === 0) {
-                //console.log(`Bottom left corner`)
                 // Bottom left corner, find tile that is corner and neighbour from matrix[r-1][0]
                 matrix[r][c] = getByNeighbours(2, [matrix[r-1][0]], choosen)
             } else if (r === SQUARE_LENGTH - 1 && c === SQUARE_LENGTH - 1) {
-                //console.log(`Bottom right corner`)
                 // Bottom right corner. Find tile that is corner and neighbour from matrix[r][c-1]
                 matrix[r][c] = getByNeighbours(2, [matrix[r-1][c],matrix[r][c-1]], choosen)
             } else if (c === 0) {
-                //console.log(`Left wall ${r},${c}`)
                 // Left wall. Find tile neighbour from matrix[r-1][0] and have 3 neighbours
                 matrix[r][c] = getByNeighbours(3, [matrix[r-1][c]], choosen)
             } else if (c === SQUARE_LENGTH - 1) {
-                //console.log(`Right wall ${r},${c}`)
                 // Right wall. Find tile neighbour from matrix[r-1][c] and have 3 neighbours
                 matrix[r][c] = getByNeighbours(3, [matrix[r-1][c],matrix[r][c-1]], choosen)
             } else if (r === 0) {
                 // Top. Find tile the is neighbour from matrix[r][c-1] and have 3 neighbours
-                //console.log(`Top ${r},${c}`)
                 matrix[r][c] = getByNeighbours(3, [matrix[r][c-1]], choosen)
             } else if (r === SQUARE_LENGTH - 1) {
-                //console.log(`Bottom ${r},${c}`)
                 // Bottom row. Find tile that is neighbour from matrix[r][c-1] and matrix[r-1][c]
                 matrix[r][c] = getByNeighbours(3, [matrix[r][c-1],matrix[r-1][c]], choosen)
             } else {
-                //console.log(`Middle zone ${r},${c}`)
                 // Middle zone. Find tile that is neighbour from matrix[r][c-1] and matrix[r-1][c]
                 matrix[r][c] = getByNeighbours(4, [matrix[r][c-1],matrix[r-1][c]], choosen)
             }
@@ -317,6 +299,23 @@ const getLeftBorder = (content: string[][]): string => {
         return accum
     }, '')
 }
+
+const getTopBorder = (content: string[][]): string => {
+    return content[0].join('')
+}
+
+const getBottomBorder = (content: string[][]): string => {
+    return content[content.length - 1].join('')
+}
+const fixFlipVertically = (previous: string[][], content: string[][]): string[][] => {
+    const prevBorder = getBottomBorder(previous)
+    const actualBorder = getTopBorder(content)
+    if (prevBorder !== actualBorder) {
+        return flipVertically(content)
+    } else {
+        return content
+    }
+}
 const fixRotation = (reference: string[][], content: string[][], first?: boolean): string[][][] => {
     const refP = reference
     const conP = content
@@ -324,18 +323,25 @@ const fixRotation = (reference: string[][], content: string[][], first?: boolean
         // We have to rotate 0x0 (reference) to be aligned with 0x1 (source)
         let right = getRightBorder(reference)
         let left = getLeftBorder(content)
+        if (right === left) {
+            return [reference, content]
+        }
         for (let r1 = 0; r1 < 2; r1++) {
             for (let r2 = 0; r2 < 2; r2++) {
                 for (let i = 0; i < 4; i++) {
-                    let right = getRightBorder(reference)
+                    reference = rotate(1, 1, reference)
+                    right = getRightBorder(reference)
+                    if (right === left) {
+                        return [reference, content]
+                    }
                     for (let j = 0; j < 4; j++) {
-                        let left = getLeftBorder(content)
+                        content = rotate(1, 1, content)
+                        left = getLeftBorder(content)
                         if (right === left) {
                             return [reference, content]
                         }
-                        content = rotate(1, 1, content)
                     }
-                    reference = rotate(1, 1, reference)
+
                 }
                 content = flipVertically(content)
             }
@@ -344,13 +350,17 @@ const fixRotation = (reference: string[][], content: string[][], first?: boolean
     } else {
         // We have to rotate content to be
         const right = getRightBorder(reference)
+        let left = getLeftBorder(content)
+        if (right === left) {
+            return [reference, content]
+        }
         for (let r = 0; r < 2; r++) {
             for (let i = 0; i < 4; i++) {
-                const left = getLeftBorder(content)
+                content = rotate(1, 1, content)
+                left = getLeftBorder(content)
                 if (right === left) {
                     return [reference, content]
                 }
-                rotate(1, 1, content)
             }
             content = flipVertically(content)
         }
@@ -358,7 +368,7 @@ const fixRotation = (reference: string[][], content: string[][], first?: boolean
     return [refP, conP]
 }
 
-const renderImage = (source: ITileNeighbour[][]) => {
+const renderImage = (source: ITileNeighbour[][]): string[] => {
     const matrix: string[] = []
 
     for (let r = 0; r < source.length; r++) {
@@ -368,22 +378,23 @@ const renderImage = (source: ITileNeighbour[][]) => {
             const tile = row[c]
             // getting tile content
             let content = TILES.get(row[c].id) || []
-            console.log(`${r},${c}`)
-            if (tile.flipH) {
-                console.log(`   - Flip horizontally`)
-                content = flipHorizontally(content)
-            } else if (tile.flipV) {
-                console.log(`   - Flip vertically`)
-                content = flipHorizontally(content)
+
+            if (r === 0 && c === 0) {
+                // Top left, ensure correct borders: known edges on right and bottom
+                const bottomEdge = getBottomBorder(content)
+                const edgeData = EDGES.get(bottomEdge)
+                if (edgeData && edgeData.length === 2) {
+                    content = flipVertically(content)
+                }
+
             }
+
             if (c === 0) {
                 let next = TILES.get(row[c+1].id) || []
                 const nextTile = row[c+1]
                 if (nextTile.flipV) {
-                    console.log(`   - Flip vertically`)
                     next = flipVertically(next)
                 } else if (nextTile.flipH) {
-                    console.log(`   - Flip horizontally`)
                     next = flipHorizontally(next)
                 }
                 let res = fixRotation(content, next, true)
@@ -397,23 +408,80 @@ const renderImage = (source: ITileNeighbour[][]) => {
                 TILES.set(row[c].id, res[1])
             }
             let newTile = true
+            if (r > 0) {
+                const prev = TILES.get(source[r-1][c].id) || []
+                content = fixFlipVertically(prev, content)
+            }
             accum.push(content)
         }
-        console.log(`${accum.length} tiles in this row`)
-        for (let r = 0; r < 10; r++) {
+        for (let r = 1; r < 9; r++) {
             const line = accum.reduce((ac: string, content) => {
-                ac += content[r].join('') + '  '
+                const l = content[r].slice(1, -1)
+                ac += l.join('')
                 return ac
             }, '')
             matrix.push(line)
         }
-        matrix.push(Array(30).fill(' ').join(''))
     }
-    console.log(matrix)
+    return matrix
+}
+
+const findTheFuckingMonster = (mat: string[][]): number => {
+
+    let monsters: number = 0
+
+    //                O....OO....OO....OOO
+    const expBody = /^#.{4}##.{4}##.{4}###/
+    //                O..  O..  O..  O..  O..  O
+    const expLegs = /^#.{2}#.{2}#.{2}#.{2}#.{2}#/
+    for (let i = 0; i < mat.length - 1; i++) {
+        // Find monster head
+        for (let c = 18; c < mat[i].length; c++) {
+            if (mat[i][c] === '#') {
+                // Looking for next row
+                const next = mat[i+1].join('')
+                const str = next.substr(c-18)
+                if (expBody.test(str)) {
+                    // Looking for legs
+                    const legs = mat[i+2].join('').substr(c-17)
+                    if (expLegs.test(legs)) {
+                        monsters++
+                    }
+                }
+            }
+        }
+    }
+
+    return monsters
+}
+
+const performSearch = (matrix: string[]): number => {
+    let finalMat: string[][] = matrix.map((line) => line.split(''))
+
+    let monsters = findTheFuckingMonster(finalMat)
+
+    if (monsters > 0) {
+        return monsters
+    }
+    for (let f = 0; f < 2; f++) {
+        finalMat = flipVertically(finalMat)
+        monsters = findTheFuckingMonster(finalMat)
+        if (monsters > 0) {
+            return monsters
+        }
+        for (let i = 0; i < 4; i++) {
+            finalMat = rotate(1, 1, finalMat)
+            monsters = findTheFuckingMonster(finalMat)
+            if (monsters > 0) {
+                return monsters
+            }
+        }
+    }
+    return -1
 }
 
 const main = async(): Promise<number> => {
-    const lines = await readLines(path.join(__dirname, 'sample.txt'))
+    const lines = await readLines(path.join(__dirname, 'input.txt'))
 
     let lastId: number = -1
     let actualContent: string[][] = []
@@ -443,7 +511,6 @@ const main = async(): Promise<number> => {
     const repeated: number[] = []
     const used: number[] = []
     mat.forEach((row) => {
-        console.log(row.map((r) => r.id).join(' '))
 
         for (const tile of row) {
             if (used.indexOf(tile.id) >= 0) {
@@ -453,11 +520,20 @@ const main = async(): Promise<number> => {
             }
         }
     })
-    console.log(`Repeated: ${repeated.join(',')}`)
-    renderImage(mat)
-    return -1
+    const matrix = renderImage(mat)
+
+    const monsters = performSearch(matrix)
+
+    const totalHashtags: number = matrix.reduce((accum: number, line) => {
+        const m = line.match(/#/g)
+        if (m) {
+            accum += m.length
+        }
+        return accum
+    }, 0)
+
+    const finalResult = totalHashtags - (monsters * 15)
+    return finalResult
 }
 
-main().then((result) => {
-    console.log(`Result: ${result}`)
-}).catch(console.error)
+export default main

@@ -58,6 +58,9 @@ import Day18Problem02 from './18/Day18-Problem02'
 import Day19Problem01 from './19/Day19-Problem01'
 import Day19Problem02 from './19/Day19-Problem02'
 
+import Day20Problem01 from './20/Day20-Problem01'
+import Day20Problem02 from './20/Day20-Problem02'
+
 import Day21Problem01 from './21/Day21-Problem01'
 import Day21Problem02 from './21/Day21-Problem02'
 
@@ -324,7 +327,18 @@ const runAll = async () => {
         console.error(e)
     }
 
-
+    try {
+        const startProblem20 = new Date()
+        console.log(`    - Day 20, problem 1: ${await Day20Problem01()} (${getTimeElapsed(startProblem20)} ms)`)
+    } catch (e) {
+        console.error(e)
+    }
+    try {
+        const startProblem20b = new Date()
+        console.log(`    - Day 20, problem 2: ${await Day20Problem02()} (${getTimeElapsed(startProblem20b)} ms)`)
+    } catch (e) {
+        console.error(e)
+    }
 
     try {
         const startProblem21 = new Date()

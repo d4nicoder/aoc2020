@@ -208,15 +208,9 @@ const main = async(): Promise<number> => {
     // Tiles with 3 neighbours are on squares
     return Array.from(NEIGHBOURS.entries()).reduce((accum: number, entry) => {
         if (entry[1].length === 2) {
-            // console.log(entry[0])
-            // console.log(entry[1])
-            console.log(`Multiplying ${entry[0]}`)
             accum *= entry[0]
         }
         return accum
     }, 1)
 }
-
-main().then((result) => {
-    console.log(`Result: ${result}`)
-}).catch(console.error)
+export default main
