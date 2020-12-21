@@ -215,12 +215,6 @@ const main = async (): Promise<number> => {
     })
 
     smartFilterAllergens()
-    // printIngredients()
-    printAllergens()
-    console.log(relationIng)
     return countOthers()
 }
-
-main().then((result) => {
-    console.log(`Result: ${result}`)
-}).catch(console.error)
+export default main

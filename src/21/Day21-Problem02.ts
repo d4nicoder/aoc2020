@@ -209,7 +209,6 @@ const countOthers = (): number => {
 }
 
 const getCanonicalList = (): string => {
-    let list = ''
     const arr = Array.from(Object.entries(relationAl))
     arr.sort((a, b) => {
         if (a[0] > b[0]) {
@@ -219,22 +218,18 @@ const getCanonicalList = (): string => {
         }
         return 0
     })
-    console.log(arr.map((a) => a[0]))
     return arr.map((a) => a[1]).join(',')
 }
 
-const main = async (): Promise<number> => {
+const main = async (): Promise<string> => {
     const lines = await readLines(path.join(__dirname, 'input.txt'))
     lines.forEach((line) => {
         processLine(line)
     })
 
     smartFilterAllergens()
-    const list = getCanonicalList()
-    console.log(list)
-    return countOthers()
+    return getCanonicalList()
 }
 
-main().then((result) => {
-    console.log(`Result: ${result}`)
-}).catch(console.error)
+export default main
+
