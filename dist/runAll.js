@@ -39,26 +39,28 @@ const Day16_Problem01_1 = __importDefault(require("./16/Day16-Problem01"));
 const Day16_Problem02_1 = __importDefault(require("./16/Day16-Problem02"));
 const Day17_Problem01_1 = __importDefault(require("./17/Day17-Problem01"));
 const Day17_Problem02_1 = __importDefault(require("./17/Day17-Problem02"));
-const Day18_Problem01_1 = __importDefault(require("./18/Day18-Problem01"));
-const Day18_Problem02_1 = __importDefault(require("./18/Day18-Problem02"));
-const Day19_Problem01_1 = __importDefault(require("./19/Day19-Problem01"));
-const Day19_Problem02_1 = __importDefault(require("./19/Day19-Problem02"));
-const Day20_Problem01_1 = __importDefault(require("./20/Day20-Problem01"));
-const Day20_Problem02_1 = __importDefault(require("./20/Day20-Problem02"));
-const Day21_Problem01_1 = __importDefault(require("./21/Day21-Problem01"));
-const Day21_Problem02_1 = __importDefault(require("./21/Day21-Problem02"));
-const Day22_Problem01_1 = __importDefault(require("./22/Day22-Problem01"));
-const Day22_Problem02_1 = __importDefault(require("./22/Day22-Problem02"));
-const bgRed = '\x1b[41m';
-const fgYellow = '\x1b[33m';
-const fgRed = '\x1b[31m';
-const reset = '\x1b[0m';
-const getTimeElapsed = (startTime) => {
-    return Date.now() - startTime.getTime();
-};
-const runAll = async () => {
-    const welcome = await fs_1.default.promises.readFile(path_1.default.join(__dirname, 'welcome.txt'));
-    console.log(welcome.toString());
+const Day18_Problem01_1 = __importDefault(require('./18/Day18-Problem01'))
+const Day18_Problem02_1 = __importDefault(require('./18/Day18-Problem02'))
+const Day19_Problem01_1 = __importDefault(require('./19/Day19-Problem01'))
+const Day19_Problem02_1 = __importDefault(require('./19/Day19-Problem02'))
+const Day20_Problem01_1 = __importDefault(require('./20/Day20-Problem01'))
+const Day20_Problem02_1 = __importDefault(require('./20/Day20-Problem02'))
+const Day21_Problem01_1 = __importDefault(require('./21/Day21-Problem01'))
+const Day21_Problem02_1 = __importDefault(require('./21/Day21-Problem02'))
+const Day22_Problem01_1 = __importDefault(require('./22/Day22-Problem01'))
+const Day22_Problem02_1 = __importDefault(require('./22/Day22-Problem02'))
+const Day23_Problem01_1 = __importDefault(require('./23/Day23-Problem01'))
+const Day23_Problem02_1 = __importDefault(require('./23/Day23-Problem02'))
+const bgRed             = '\x1b[41m'
+const fgYellow          = '\x1b[33m'
+const fgRed             = '\x1b[31m'
+const reset             = '\x1b[0m'
+const getTimeElapsed    = (startTime) => {
+  return Date.now() - startTime.getTime()
+}
+const runAll            = async () => {
+  const welcome = await fs_1.default.promises.readFile(path_1.default.join(__dirname, 'welcome.txt'))
+  console.log(welcome.toString())
     const start = new Date();
     try {
         const startProblem01 = new Date();
@@ -355,21 +357,31 @@ const runAll = async () => {
         console.error(e);
     }
     try {
-        const startProblem22 = new Date();
-        console.log(`    - Day 22, problem 1: ${await Day22_Problem01_1.default()} (${getTimeElapsed(startProblem22)} ms)`);
+      const startProblem22 = new Date()
+      console.log(`    - Day 22, problem 1: ${ await Day22_Problem01_1.default() } (${ getTimeElapsed(startProblem22) } ms)`)
+    } catch (e) {
+      console.error(e)
     }
-    catch (e) {
-        console.error(e);
-    }
-    try {
-        const startProblem22b = new Date();
-        console.log(`    - Day 22, problem 2: ${await Day22_Problem02_1.default()} (${getTimeElapsed(startProblem22b)} ms)`);
-    }
-    catch (e) {
-        console.error(e);
-    }
-    console.log('\n***********************************************************************\n');
-    const end = new Date();
-    console.log(`Total time elapsed: ${end.getTime() - start.getTime()} ms`);
+  try {
+    const startProblem22b = new Date()
+    console.log(`    - Day 22, problem 2: ${ await Day22_Problem02_1.default() } (${ getTimeElapsed(startProblem22b) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  try {
+    const startProblem23 = new Date()
+    console.log(`    - Day 23, problem 1: ${ await Day23_Problem01_1.default() } (${ getTimeElapsed(startProblem23) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  try {
+    const startProblem23b = new Date()
+    console.log(`    - Day 23, problem 2: ${ await Day23_Problem02_1.default() } (${ getTimeElapsed(startProblem23b) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  console.log('\n***********************************************************************\n')
+  const end = new Date()
+  console.log(`Total time elapsed: ${ end.getTime() - start.getTime() } ms`)
 };
 runAll().catch(console.error);

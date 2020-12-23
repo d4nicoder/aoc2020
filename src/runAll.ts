@@ -67,6 +67,9 @@ import Day21Problem02 from './21/Day21-Problem02'
 import Day22Problem01 from './22/Day22-Problem01'
 import Day22Problem02 from './22/Day22-Problem02'
 
+import Day23Problem01 from './23/Day23-Problem01'
+import Day23Problem02 from './23/Day23-Problem02'
+
 
 const bgRed = '\x1b[41m'
 const fgYellow = '\x1b[33m'
@@ -364,15 +367,28 @@ const runAll = async () => {
     }
     try {
         const startProblem22b = new Date()
-        console.log(`    - Day 22, problem 2: ${await Day22Problem02()} (${getTimeElapsed(startProblem22b)} ms)`)
+        console.log(`    - Day 22, problem 2: ${ await Day22Problem02() } (${ getTimeElapsed(startProblem22b) } ms)`)
     } catch (e) {
         console.error(e)
     }
 
 
+    try {
+        const startProblem23 = new Date()
+        console.log(`    - Day 23, problem 1: ${ await Day23Problem01() } (${ getTimeElapsed(startProblem23) } ms)`)
+    } catch (e) {
+        console.error(e)
+    }
+    try {
+        const startProblem23b = new Date()
+        console.log(`    - Day 23, problem 2: ${ await Day23Problem02() } (${ getTimeElapsed(startProblem23b) } ms)`)
+    } catch (e) {
+        console.error(e)
+    }
+
     console.log('\n***********************************************************************\n')
     const end = new Date()
-    console.log(`Total time elapsed: ${end.getTime() - start.getTime()} ms`)
+    console.log(`Total time elapsed: ${ end.getTime() - start.getTime() } ms`)
 }
 
 runAll().catch(console.error)
