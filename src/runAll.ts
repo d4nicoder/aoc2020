@@ -73,6 +73,8 @@ import Day23Problem02 from './23/Day23-Problem02'
 import Day24Problem01 from './24/Day24-Problem01'
 import Day24Problem02 from './24/Day24-Problem02'
 
+import Day25Problem01 from './25/Day25-Problem01'
+
 
 const bgRed = '\x1b[41m'
 const fgYellow = '\x1b[33m'
@@ -403,9 +405,19 @@ const runAll = async () => {
         console.error(e)
     }
 
+    try {
+        const startProblem25 = new Date()
+        console.log(`    - Day 25: ${ await Day25Problem01() } (${ getTimeElapsed(startProblem25) } ms)`)
+    } catch (e) {
+        console.error(e)
+    }
+
     console.log('\n***********************************************************************\n')
     const end = new Date()
-    console.log(`Total time elapsed: ${ end.getTime() - start.getTime() } ms`)
+    console.log(`Total time elapsed: ${ end.getTime() - start.getTime() } ms\n\n`)
+
+    const merryxmas = await fs.promises.readFile(path.join(__dirname, 'merryxmas.txt'))
+    console.log(merryxmas.toString())
 }
 
 runAll().catch(console.error)

@@ -10,55 +10,75 @@
                                                |_____|\___/_____|\___/
 
 Result 156
-    - Day 1, problem 1: 658899 (35 ms)
-    - Day 1, problem 2: 155806250 (25 ms)
-    - Day 2, problem 1: 493 (3 ms)
-    - Day 2, problem 2: 593 (2 ms)
+    - Day 1, problem 1: 658899 (34 ms)
+    - Day 1, problem 2: 155806250 (27 ms)
+    - Day 2, problem 1: 493 (2 ms)
+    - Day 2, problem 2: 593 (1 ms)
     - Day 3, problem 1: 280 (2 ms)
     - Day 3, problem 2: 4355551200 (3 ms)
     - Day 4, problem 1: 213 (8 ms)
-    - Day 4, problem 2: 147 (6 ms)
+    - Day 4, problem 2: 147 (7 ms)
     - Day 5, problem 1: 911 (2 ms)
     - Day 5, problem 2: 629 (2 ms)
-    - Day 6, problem 1: 6799 (5 ms)
-    - Day 6, problem 2: 3354 (8 ms)
-    - Day 7, problem 1: 224 (7 ms)
+    - Day 6, problem 1: 6799 (4 ms)
+    - Day 6, problem 2: 3354 (9 ms)
+    - Day 7, problem 1: 224 (6 ms)
     - Day 7, problem 2: 1488 (3 ms)
-    - Day 8, problem 1: 1810 (1 ms)
-    - Day 8, problem 2: 969 (5 ms)
-    - Day 9, problem 1: 70639851 (3 ms)
-    - Day 9, problem 2: 8249240 (33 ms)
+    - Day 8, problem 1: 1810 (2 ms)
+    - Day 8, problem 2: 969 (4 ms)
+    - Day 9, problem 1: 70639851 (4 ms)
+    - Day 9, problem 2: 8249240 (34 ms)
     - Day 10, problem 1: 1820 (1 ms)
     - Day 10, problem 2: 3454189699072 (1 ms)
-    - Day 11, problem 1: 2324 (143 ms)
-    - Day 11, problem 2: 2068 (214 ms)
-    - Day 12, problem 1: 1603 (2 ms)
+    - Day 11, problem 1: 2324 (141 ms)
+    - Day 11, problem 2: 2068 (181 ms)
+    - Day 12, problem 1: 1603 (1 ms)
     - Day 12, problem 2: 52866 (2 ms)
     - Day 13, problem 1: 333 (0 ms)
     - Day 13, problem 2: 690123192779524 (1 ms)
     - Day 14, problem 1: 6513443633260 (6 ms)
-    - Day 14, problem 2: 3442819875191 (618 ms)
-    - Day 15, problem 1: 981 (1 ms)
-    - Day 15, problem 2: 164878 (4343 ms. Needs optimization... maybe one day ;) )
-    - Day 16, problem 1: 27870 (187 ms)
-    - Day 16, problem 2: 3173135507987 (182 ms)
-    - Day 17, problem 1: 252 (66 ms)
-    - Day 17, problem 2: 2160 (2401 ms)
-    - Day 18, problem 1: 16332191652452 (7 ms)
-    - Day 18, problem 2: 351175492232654 (11 ms)
-    - Day 19, problem 1: 312 (30 ms)
-    - Day 19, problem 2: 363 (69 ms)
-    - Day 20, problem 1: 14129524957217 (10 ms)
-    - Day 20, problem 2: 1649 (41 ms)
-    - Day 21, problem 1: 1815 (31 ms)
-    - Day 21, problem 2: kllgt,jrnqx,ljvx,zxstb,gnbxs,mhtc,hfdxb,hbfnkq (32 ms)
+    - Day 14, problem 2: 3442819875191 (465 ms)
+    - Day 15, problem 1: 981 (0 ms)
+    - Day 15, problem 2: 164878 (4338 ms. Needs optimization... maybe one day ;) )
+    - Day 16, problem 1: 27870 (207 ms)
+    - Day 16, problem 2: 3173135507987 (184 ms)
+    - Day 17, problem 1: 252 (68 ms)
+    - Day 17, problem 2: 2160 (2474 ms)
+    - Day 18, problem 1: 16332191652452 (8 ms)
+    - Day 18, problem 2: 351175492232654 (13 ms)
+    - Day 19, problem 1: 312 (31 ms)
+    - Day 19, problem 2: 363 (71 ms)
+    - Day 20, problem 1: 14129524957217 (9 ms)
+    - Day 20, problem 2: 1649 (43 ms)
+    - Day 21, problem 1: 1815 (34 ms)
+    - Day 21, problem 2: kllgt,jrnqx,ljvx,zxstb,gnbxs,mhtc,hfdxb,hbfnkq (34 ms)
     - Day 22, problem 1: 35005 (2 ms)
-    - Day 22, problem 2: 32751 (3199 ms)
-    - Day 23, problem 1: 25368479 (2 ms)
-    - Day 23, problem 2: 44541319250 (6208 ms)
+    - Day 22, problem 2: 32751 (3356 ms)
+    - Day 23, problem 1: 25368479 (1 ms)
+    - Day 23, problem 2: 44541319250 (6597 ms)
     - Day 24, problem 1: 320 (6 ms)
-    - Day 24, problem 2: 3777 (1591 ms)
+    - Day 24, problem 2: 3777 (1680 ms)
+    - Day 25: 19414467 (215 ms)
 
 ***********************************************************************
 
-Total time elapsed: 19563 ms
+Total time elapsed: 20329 ms
+
+
+         |
+        -+-
+         A
+        /=\               /\  /\    ___  _ __  _ __ __    __
+      i/ O \i            /  \/  \  / _ \| '__|| '__|\ \  / /
+      /=====\           / /\  /\ \|  __/| |   | |    \ \/ /
+      /  i  \           \ \ \/ / / \___/|_|   |_|     \  /
+    i/ O * O \i                                       / /
+    /=========\        __  __                        /_/    _
+    /  *   *  \        \ \/ /        /\  /\    __ _  ____  | |
+  i/ O   i   O \i       \  /   __   /  \/  \  / _` |/ ___\ |_|
+  /=============\       /  \  |__| / /\  /\ \| (_| |\___ \  _
+  /  O   i   O  \      /_/\_\      \ \ \/ / / \__,_|\____/ |_|
+i/ *   O   O   * \i
+/=================\             See you next year!
+       |___|                      Daniel Cañada
+

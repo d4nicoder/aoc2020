@@ -1,34 +1,34 @@
-"use strict";
+'use strict'
 var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = __importDefault(require("path"));
-const fs_1 = __importDefault(require("fs"));
-const Day01_Problem01_1 = __importDefault(require("./01/Day01-Problem01"));
-const Day01_Problem02_1 = __importDefault(require("./01/Day01-Problem02"));
-const Day02_Problem01_1 = __importDefault(require("./02/Day02-Problem01"));
-const Day02_Problem02_1 = __importDefault(require("./02/Day02-Problem02"));
-const Day03_Problem01_1 = __importDefault(require("./03/Day03-Problem01"));
-const Day03_Problem02_1 = __importDefault(require("./03/Day03-Problem02"));
-const Day04_Problem01_1 = __importDefault(require("./04/Day04-Problem01"));
-const Day04_Problem02_1 = __importDefault(require("./04/Day04-Problem02"));
-const Day05_Problem01_1 = __importDefault(require("./05/Day05-Problem01"));
-const Day05_Problem02_1 = __importDefault(require("./05/Day05-Problem02"));
-const Day06_Problem01_1 = __importDefault(require("./06/Day06-Problem01"));
-const Day06_Problem02_1 = __importDefault(require("./06/Day06-Problem02"));
-const Day07_Problem01_1 = __importDefault(require("./07/Day07-Problem01"));
-const Day07_Problem02_1 = __importDefault(require("./07/Day07-Problem02"));
-const Day08_Problem01_1 = __importDefault(require("./08/Day08-Problem01"));
-const Day08_Problem02_1 = __importDefault(require("./08/Day08-Problem02"));
-const Day09_Problem01_1 = __importDefault(require("./09/Day09-Problem01"));
-const Day09_Problem02_1 = __importDefault(require("./09/Day09-Problem02"));
-const Day10_Problem01_1 = __importDefault(require("./10/Day10-Problem01"));
-const Day10_Problem02_1 = __importDefault(require("./10/Day10-Problem02"));
-const Day11_Problem01_1 = __importDefault(require("./11/Day11-Problem01"));
-const Day11_Problem02_1 = __importDefault(require("./11/Day11-Problem02"));
-const Day12_Problem01_1 = __importDefault(require("./12/Day12-Problem01"));
-const Day12_Problem02_1 = __importDefault(require("./12/Day12-Problem02"));
+  return (mod && mod.__esModule) ? mod : { 'default': mod }
+}
+Object.defineProperty(exports, '__esModule', { value: true })
+const path_1            = __importDefault(require('path'))
+const fs_1              = __importDefault(require('fs'))
+const Day01_Problem01_1 = __importDefault(require('./01/Day01-Problem01'))
+const Day01_Problem02_1 = __importDefault(require('./01/Day01-Problem02'))
+const Day02_Problem01_1 = __importDefault(require('./02/Day02-Problem01'))
+const Day02_Problem02_1 = __importDefault(require('./02/Day02-Problem02'))
+const Day03_Problem01_1 = __importDefault(require('./03/Day03-Problem01'))
+const Day03_Problem02_1 = __importDefault(require('./03/Day03-Problem02'))
+const Day04_Problem01_1 = __importDefault(require('./04/Day04-Problem01'))
+const Day04_Problem02_1 = __importDefault(require('./04/Day04-Problem02'))
+const Day05_Problem01_1 = __importDefault(require('./05/Day05-Problem01'))
+const Day05_Problem02_1 = __importDefault(require('./05/Day05-Problem02'))
+const Day06_Problem01_1 = __importDefault(require('./06/Day06-Problem01'))
+const Day06_Problem02_1 = __importDefault(require('./06/Day06-Problem02'))
+const Day07_Problem01_1 = __importDefault(require('./07/Day07-Problem01'))
+const Day07_Problem02_1 = __importDefault(require('./07/Day07-Problem02'))
+const Day08_Problem01_1 = __importDefault(require('./08/Day08-Problem01'))
+const Day08_Problem02_1 = __importDefault(require('./08/Day08-Problem02'))
+const Day09_Problem01_1 = __importDefault(require('./09/Day09-Problem01'))
+const Day09_Problem02_1 = __importDefault(require('./09/Day09-Problem02'))
+const Day10_Problem01_1 = __importDefault(require('./10/Day10-Problem01'))
+const Day10_Problem02_1 = __importDefault(require('./10/Day10-Problem02'))
+const Day11_Problem01_1 = __importDefault(require('./11/Day11-Problem01'))
+const Day11_Problem02_1 = __importDefault(require('./11/Day11-Problem02'))
+const Day12_Problem01_1 = __importDefault(require('./12/Day12-Problem01'))
+const Day12_Problem02_1 = __importDefault(require('./12/Day12-Problem02'))
 const Day13_Problem01_1 = __importDefault(require('./13/Day13-Problem01'))
 const Day13_Problem02_1 = __importDefault(require('./13/Day13-Problem02'))
 const Day14_Problem01_1 = __importDefault(require('./14/Day14-Problem01'))
@@ -53,6 +53,7 @@ const Day23_Problem01_1 = __importDefault(require('./23/Day23-Problem01'))
 const Day23_Problem02_1 = __importDefault(require('./23/Day23-Problem02'))
 const Day24_Problem01_1 = __importDefault(require('./24/Day24-Problem01'))
 const Day24_Problem02_1 = __importDefault(require('./24/Day24-Problem02'))
+const Day25_Problem01_1 = __importDefault(require('./25/Day25-Problem01'))
 const bgRed             = '\x1b[41m'
 const fgYellow          = '\x1b[33m'
 const fgRed             = '\x1b[31m'
@@ -72,36 +73,32 @@ const runAll            = async () => {
   }
   try {
     const startProblem01b = new Date()
-        console.log(`    - Day 1, problem 2: ${await Day01_Problem02_1.default()} (${getTimeElapsed(startProblem01b)} ms)`);
-    }
-    catch (e) {
-        console.error(e);
-    }
-    try {
-        const startProblem02 = new Date();
-        console.log(`    - Day 2, problem 1: ${await Day02_Problem01_1.default()} (${getTimeElapsed(startProblem02)} ms)`);
-    }
-    catch (e) {
-        console.error(e);
-    }
-    try {
-        const startProblem02b = new Date();
-        console.log(`    - Day 2, problem 2: ${await Day02_Problem02_1.default()} (${getTimeElapsed(startProblem02b)} ms)`);
-    }
-    catch (e) {
-        console.error(e);
-    }
-    try {
-        const startProblem03 = new Date();
-        console.log(`    - Day 3, problem 1: ${await Day03_Problem01_1.default()} (${getTimeElapsed(startProblem03)} ms)`);
-    }
-    catch (e) {
-        console.error(e);
-    }
-    try {
-        const startProblem03b = new Date();
-        console.log(`    - Day 3, problem 2: ${await Day03_Problem02_1.default()} (${getTimeElapsed(startProblem03b)} ms)`);
-    }
+    console.log(`    - Day 1, problem 2: ${ await Day01_Problem02_1.default() } (${ getTimeElapsed(startProblem01b) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  try {
+    const startProblem02 = new Date()
+    console.log(`    - Day 2, problem 1: ${ await Day02_Problem01_1.default() } (${ getTimeElapsed(startProblem02) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  try {
+    const startProblem02b = new Date()
+    console.log(`    - Day 2, problem 2: ${ await Day02_Problem02_1.default() } (${ getTimeElapsed(startProblem02b) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  try {
+    const startProblem03 = new Date()
+    console.log(`    - Day 3, problem 1: ${ await Day03_Problem01_1.default() } (${ getTimeElapsed(startProblem03) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  try {
+    const startProblem03b = new Date()
+    console.log(`    - Day 3, problem 2: ${ await Day03_Problem02_1.default() } (${ getTimeElapsed(startProblem03b) } ms)`)
+  }
     catch (e) {
         console.error(e);
     }
@@ -318,38 +315,33 @@ const runAll            = async () => {
     try {
         const startProblem19 = new Date();
         console.log(`    - Day 19, problem 1: ${await Day19_Problem01_1.default()} (${getTimeElapsed(startProblem19)} ms)`);
-    }
-    catch (e) {
-        console.error(e);
-    }
-    try {
-        const startProblem19b = new Date();
-        console.log(`    - Day 19, problem 2: ${await Day19_Problem02_1.default()} (${getTimeElapsed(startProblem19b)} ms)`);
-    }
-    catch (e) {
-        console.error(e);
-    }
-    try {
-        const startProblem20 = new Date();
-        console.log(`    - Day 20, problem 1: ${await Day20_Problem01_1.default()} (${getTimeElapsed(startProblem20)} ms)`);
-    }
-    catch (e) {
-        console.error(e);
-    }
-    try {
-        const startProblem20b = new Date();
-        console.log(`    - Day 20, problem 2: ${await Day20_Problem02_1.default()} (${getTimeElapsed(startProblem20b)} ms)`);
-    }
-    catch (e) {
-        console.error(e);
-    }
-    try {
-        const startProblem21 = new Date();
-        console.log(`    - Day 21, problem 1: ${await Day21_Problem01_1.default()} (${getTimeElapsed(startProblem21)} ms)`);
-    }
-    catch (e) {
+    } catch (e) {
       console.error(e)
     }
+  try {
+    const startProblem19b = new Date()
+    console.log(`    - Day 19, problem 2: ${ await Day19_Problem02_1.default() } (${ getTimeElapsed(startProblem19b) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  try {
+    const startProblem20 = new Date()
+    console.log(`    - Day 20, problem 1: ${ await Day20_Problem01_1.default() } (${ getTimeElapsed(startProblem20) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  try {
+    const startProblem20b = new Date()
+    console.log(`    - Day 20, problem 2: ${ await Day20_Problem02_1.default() } (${ getTimeElapsed(startProblem20b) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
+  try {
+    const startProblem21 = new Date()
+    console.log(`    - Day 21, problem 1: ${ await Day21_Problem01_1.default() } (${ getTimeElapsed(startProblem21) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
   try {
     const startProblem21b = new Date()
     console.log(`    - Day 21, problem 2: ${ await Day21_Problem02_1.default() } (${ getTimeElapsed(startProblem21b) } ms)`)
@@ -392,8 +384,16 @@ const runAll            = async () => {
   } catch (e) {
     console.error(e)
   }
+  try {
+    const startProblem25 = new Date()
+    console.log(`    - Day 25: ${ await Day25_Problem01_1.default() } (${ getTimeElapsed(startProblem25) } ms)`)
+  } catch (e) {
+    console.error(e)
+  }
   console.log('\n***********************************************************************\n')
   const end = new Date()
-  console.log(`Total time elapsed: ${ end.getTime() - start.getTime() } ms`)
+  console.log(`Total time elapsed: ${ end.getTime() - start.getTime() } ms\n\n`)
+  const merryxmas = await fs_1.default.promises.readFile(path_1.default.join(__dirname, 'merryxmas.txt'))
+  console.log(merryxmas.toString())
 };
 runAll().catch(console.error);
