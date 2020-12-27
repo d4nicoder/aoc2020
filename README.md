@@ -1,16 +1,15 @@
 # Advent of Code 2020
 
-This is the third year that I intend to finish the Advent of Code challenge. I always leave it halfway.
+**(This repository is archived)**
 
-Last year I did it in Go, and this one I have proposed to do it in Typescript.
-
-Let's see if this time I finish it ...
+These are my solutions for the Advent of code 2020. They are written in Typescript.
 
 ## Run instructions
 
 All source files are in the ./src folder and compiled in ./dist. You can run all the challenge solutions by typing:
 
 ```bash
+npm ci
 npm start
 ```
 
